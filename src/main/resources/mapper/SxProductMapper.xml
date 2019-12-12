@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.sx.mapper.SxProductMapper">
+  <resultMap id="BaseResultMap" type="com.mt.sx.pojo.SxProduct">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="pre_price" jdbcType="DECIMAL" property="prePrice" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="speway" jdbcType="VARCHAR" property="speway" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="spu_id" jdbcType="INTEGER" property="spuId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="business_id" jdbcType="INTEGER" property="businessId" />
+  </resultMap>
+</mapper>

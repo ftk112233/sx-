@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.sx.mapper.YsShopMapper">
+  <resultMap id="BaseResultMap" type="com.mt.sx.pojo.YsShop">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="shop_logo" jdbcType="VARCHAR" property="shopLogo" />
+    <result column="shop_desc" jdbcType="VARCHAR" property="shopDesc" />
+    <result column="open_status" jdbcType="INTEGER" property="openStatus" />
+    <result column="style_id" jdbcType="INTEGER" property="styleId" />
+    <result column="shop_flow" jdbcType="VARCHAR" property="shopFlow" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="charter_img" jdbcType="VARCHAR" property="charterImg" />
+    <result column="health_img" jdbcType="VARCHAR" property="healthImg" />
+    <result column="surroundings_img" jdbcType="VARCHAR" property="surroundingsImg" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="review" jdbcType="INTEGER" property="review" />
+  </resultMap>
+</mapper>
