@@ -3,8 +3,8 @@ package com.mt.sx.pojo.vo;
 import com.mt.sx.pojo.SxProduct;
 
 public class SxProductVO extends SxProduct {
-   /* private Integer page;
-    private Integer pageSize;*/
+    private Integer page;
+    private Integer pageSize;
 
     public Integer getPage() {
         return page;
