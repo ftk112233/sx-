@@ -6,7 +6,7 @@ public class SxProductVO extends SxProduct {
     private Integer page;
     private Integer pageSize;
 
-    public Integer getPage() {
+   /* public Integer getPage() {
         return page;
     }
 
@@ -20,5 +20,5 @@ public class SxProductVO extends SxProduct {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
-    }
+    }*/
 }
