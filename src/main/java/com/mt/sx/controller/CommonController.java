@@ -2,11 +2,9 @@ package com.mt.sx.controller;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
-
 import com.mt.sx.common.base.CommonResult;
 import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.common.exception.GlobalException;
-
 import com.mt.sx.common.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package com.mt.sx.pojo;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "sx_specs_way")
 public class SxSpecsWay {

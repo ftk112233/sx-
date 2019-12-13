@@ -9,9 +9,11 @@ public interface SxSpuService {
 
     Integer insertSpu(SxSpu sxSpu);
 
-    Integer uopdateSxSpu(SxSpu sxSpu);
+    Integer updateSxSpu(SxSpu sxSpu);
 
     Integer deleteSxSpu(Integer id);
 
     List<SxSpu> findByCategoryId(Integer categoryId);
+
+    SxSpu findById(Integer id);
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class SxSpuServiceImpl implements SxSpuService{
+public class SxSpuServiceImpl implements SxSpuService {
     @Autowired
     SxSpuMapper sxSpuMapper;
 
@@ -44,7 +44,7 @@ public class SxSpuServiceImpl implements SxSpuService{
      * @return
      */
     @Override
-    public Integer uopdateSxSpu(SxSpu sxSpu) {
+    public Integer updateSxSpu(SxSpu sxSpu) {
         sxSpu.setUpdateTime(new Date());
         return sxSpuMapper.updateByPrimaryKeySelective(sxSpu);
     }
@@ -69,5 +69,15 @@ public class SxSpuServiceImpl implements SxSpuService{
         SxSpu sxSpu=new SxSpu();
         sxSpu.setCategoryId(categoryId);
         return sxSpuMapper.select(sxSpu);
+    }
+
+    /**
+     * 根据小分类id查询
+     * @param id
+     * @return
+     */
+    @Override
+    public SxSpu findById(Integer id) {
+        return sxSpuMapper.selectByPrimaryKey(id);
     }
 }

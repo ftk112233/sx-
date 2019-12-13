@@ -1,8 +1,8 @@
 package com.mt.sx.pojo;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sx_order")
 public class SxOrder {
@@ -10,6 +10,7 @@ public class SxOrder {
      * 订单id
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     /**
@@ -190,7 +191,7 @@ public class SxOrder {
     /**
      * 获取生成时间
      *
-     * @return crate_time - 生成时间
+     * @return create_time - 生成时间
      */
     public Date getCreateTime() {
         return createTime;

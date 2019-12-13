@@ -10,8 +10,8 @@ public enum ResponseCode implements IResponseCode {
     UNLOGIN(401, "未登录或登陆过期"),
     UPDATE_FALSE(-1,"更新失败"),
     INSERT_FALSE(-1,"添加失败"),
-    DELETE_FALSE(-1,"删除失败");
-
+    DELETE_FALSE(-1,"删除失败"),
+    SELECT_FALSE(-1,"查询失败");
     private  Integer code;
     private String msg;
 

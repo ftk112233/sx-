@@ -1,7 +1,7 @@
 package com.mt.sx.pojo;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "sx_order_info")
 public class SxOrderInfo {
@@ -11,18 +11,6 @@ public class SxOrderInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    /**
-     * 总订单id
-     */
-    @Column(name = "order_id")
-    private String orderId;
-
-    /**
-     * 子订单id
-     */
-    @Column(name = "suborder_id")
-    private String suborderId;
 
     /**
      * 商品id
@@ -40,6 +28,12 @@ public class SxOrderInfo {
      */
     @Column(name = "create_time")
     private Date createTime;
+
+    /**
+     * 子订单id
+     */
+    @Column(name = "suborder_id")
+    private String suborderId;
 
     /**
      * 添加者
@@ -73,6 +67,16 @@ public class SxOrderInfo {
      * 0 未支付 1 已支付 2 已发货 3 已签收
      */
     private Integer type;
+    @Column(name = "order_id")
+    private String orderId;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
     /**
      * 获取订单详情id
@@ -90,42 +94,6 @@ public class SxOrderInfo {
      */
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * 获取总订单id
-     *
-     * @return order_id - 总订单id
-     */
-    public String getOrderId() {
-        return orderId;
-    }
-
-    /**
-     * 设置总订单id
-     *
-     * @param orderId 总订单id
-     */
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
-    }
-
-    /**
-     * 获取子订单id
-     *
-     * @return suborder_id - 子订单id
-     */
-    public String getSuborderId() {
-        return suborderId;
-    }
-
-    /**
-     * 设置子订单id
-     *
-     * @param suborderId 子订单id
-     */
-    public void setSuborderId(String suborderId) {
-        this.suborderId = suborderId == null ? null : suborderId.trim();
     }
 
     /**
@@ -180,6 +148,24 @@ public class SxOrderInfo {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    /**
+     * 获取子订单id
+     *
+     * @return suborder_id - 子订单id
+     */
+    public String getSuborderId() {
+        return suborderId;
+    }
+
+    /**
+     * 设置子订单id
+     *
+     * @param suborderId 子订单id
+     */
+    public void setSuborderId(String suborderId) {
+        this.suborderId = suborderId == null ? null : suborderId.trim();
     }
 
     /**

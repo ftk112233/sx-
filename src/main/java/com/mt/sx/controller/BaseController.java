@@ -1,10 +1,8 @@
 package com.mt.sx.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 
 /**

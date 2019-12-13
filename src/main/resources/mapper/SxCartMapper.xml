@@ -15,6 +15,5 @@
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="business_id" jdbcType="INTEGER" property="businessId" />
   </resultMap>
 </mapper>

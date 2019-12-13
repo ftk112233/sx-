@@ -1,8 +1,8 @@
 package com.mt.sx.pojo;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sx_cart")
 public class SxCart {
@@ -10,6 +10,7 @@ public class SxCart {
      * 自增id
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -64,7 +65,7 @@ public class SxCart {
     private Date createTime;
 
     /**
-     * 店铺id
+     * 商家id
      */
     @Column(name = "business_id")
     private Integer businessId;
@@ -249,20 +250,10 @@ public class SxCart {
         this.createTime = createTime;
     }
 
-    /**
-     * 获取店铺id
-     *
-     * @return business_id - 店铺id
-     */
     public Integer getBusinessId() {
         return businessId;
     }
 
-    /**
-     * 设置店铺id
-     *
-     * @param businessId 店铺id
-     */
     public void setBusinessId(Integer businessId) {
         this.businessId = businessId;
     }

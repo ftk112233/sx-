@@ -6,11 +6,10 @@
       WARNING - @mbg.generated
     -->
     <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="suborder_id" jdbcType="VARCHAR" property="suborderId" />
     <result column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="suborder_id" jdbcType="VARCHAR" property="suborderId" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />

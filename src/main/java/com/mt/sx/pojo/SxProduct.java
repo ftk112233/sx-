@@ -1,8 +1,8 @@
 package com.mt.sx.pojo;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sx_product")
 public class SxProduct {
@@ -104,6 +104,9 @@ public class SxProduct {
      */
     @Column(name = "business_id")
     private Integer businessId;
+
+    @Transient
+    private SxComment sxComment;
 
     /**
      * 获取自增id
@@ -427,5 +430,13 @@ public class SxProduct {
      */
     public void setBusinessId(Integer businessId) {
         this.businessId = businessId;
+    }
+
+    public SxComment getSxComment() {
+        return sxComment;
+    }
+
+    public void setSxComment(SxComment sxComment) {
+        this.sxComment = sxComment;
     }
 }

@@ -63,4 +63,14 @@ public class SxCategoryServiceImpl implements SxCategoryService {
     public Integer deleteCategory(Integer id) {
        return sxCategoryMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * 根据id查询分类
+     * @param id
+     * @return
+     */
+    @Override
+    public SxCategory findById(Integer id) {
+        return sxCategoryMapper.selectByPrimaryKey(id);
+    }
 }

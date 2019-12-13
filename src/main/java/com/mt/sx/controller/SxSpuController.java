@@ -45,7 +45,7 @@ public class SxSpuController {
      */
     @PostMapping("/update")
     public CommonResult update(SxSpu sxSpu){
-        if(sxSpuService.uopdateSxSpu(sxSpu)==1){
+        if(sxSpuService.updateSxSpu(sxSpu)==1){
             return CommonResult.success();
         }
         return CommonResult.fail(ResponseCode.UPDATE_FALSE);
@@ -66,11 +66,25 @@ public class SxSpuController {
 
     /**
      * 根据大分类id查询小分类
-     * @param categoryId
+     * @param categoryId  大分类id
      * @return
      */
-    @PostMapping("/findByCategoryId")
-    public CommonResult<List<SxSpu>> findByCategory(@RequestParam(value ="categoryid",required = true) Integer categoryId){
+    @GetMapping("/findByCategoryId")
+    public CommonResult<List<SxSpu>> findByCategory(@RequestParam(value ="categoryId") Integer categoryId){
+        if (categoryId==null||categoryId==0){
+            return CommonResult.fail(ResponseCode.SELECT_FALSE);
+        }
         return CommonResult.success(sxSpuService.findByCategoryId(categoryId));
+    }
+
+    /**
+     * 根据小分类id查询小分类
+     * @param id  小分类id
+     * @return
+     */
+    @GetMapping("/findById")
+    public CommonResult<SxSpu> findById(@RequestParam("id") Integer id){
+        return CommonResult.success(sxSpuService.findById(id));
+
     }
 }

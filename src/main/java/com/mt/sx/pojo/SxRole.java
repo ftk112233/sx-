@@ -3,8 +3,8 @@ package com.mt.sx.pojo;
 import javax.persistence.*;
 import java.util.Date;
 
-@Table(name = "sx_specs_unit")
-public class SxSpecsUnit {
+@Table(name = "sx_role")
+public class SxRole {
     /**
      * 自增id
      */
@@ -13,7 +13,7 @@ public class SxSpecsUnit {
     private Integer id;
 
     /**
-     * 单位名称
+     * 角色名
      */
     private String name;
 
@@ -42,6 +42,11 @@ public class SxSpecsUnit {
     private Date updateTime;
 
     /**
+     * 状态 1:有效 0:无效
+     */
+    private Integer status;
+
+    /**
      * 获取自增id
      *
      * @return id - 自增id
@@ -60,18 +65,18 @@ public class SxSpecsUnit {
     }
 
     /**
-     * 获取单位名称
+     * 获取角色名
      *
-     * @return name - 单位名称
+     * @return name - 角色名
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 设置单位名称
+     * 设置角色名
      *
-     * @param name 单位名称
+     * @param name 角色名
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
@@ -147,5 +152,23 @@ public class SxSpecsUnit {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    /**
+     * 获取状态 1:有效 0:无效
+     *
+     * @return status - 状态 1:有效 0:无效
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置状态 1:有效 0:无效
+     *
+     * @param status 状态 1:有效 0:无效
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

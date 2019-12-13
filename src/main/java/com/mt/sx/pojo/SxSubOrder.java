@@ -1,15 +1,15 @@
 package com.mt.sx.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sx_sub_order")
 public class SxSubOrder {
     /**
      * 子订单id
      */
-    @Id
     @Column(name = "suborder_id")
     private String suborderId;
 
@@ -53,12 +53,12 @@ public class SxSubOrder {
      */
     @Column(name = "update_by")
     private String updateBy;
-
-    /**
-     * 买家id
-     */
     @Column(name = "shop_id")
     private Integer shopId;
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
 
     /**
      * 获取子订单id
@@ -204,21 +204,4 @@ public class SxSubOrder {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
-    /**
-     * 获取买家id
-     *
-     * @return shop_id - 买家id
-     */
-    public Integer getShopId() {
-        return shopId;
-    }
-
-    /**
-     * 设置买家id
-     *
-     * @param shopId 买家id
-     */
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
-    }
 }
