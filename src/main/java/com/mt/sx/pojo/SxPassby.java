@@ -1,7 +1,7 @@
 package com.mt.sx.pojo;
 
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "sx_passby")
 public class SxPassby {
@@ -9,7 +9,6 @@ public class SxPassby {
      * 配送人员自增id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -45,6 +44,12 @@ public class SxPassby {
      */
     @Column(name = "update_time")
     private Date updateTime;
+
+    /**
+     * 店铺id
+     */
+    @Column(name = "business_id")
+    private Integer businessId;
 
     /**
      * 获取配送人员自增id
@@ -170,5 +175,23 @@ public class SxPassby {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    /**
+     * 获取店铺id
+     *
+     * @return business_id - 店铺id
+     */
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    /**
+     * 设置店铺id
+     *
+     * @param businessId 店铺id
+     */
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
     }
 }
