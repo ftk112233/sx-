@@ -24,13 +24,18 @@ public class SxOrdersController {
     }
 
     @PostMapping("insertOrder")
-    public CommonResult insertOrder(@RequestParam("list") List<Integer> list, @RequestParam("address")String address,@RequestParam("message")String message,@RequestParam("hopeTime") Date hopeTime) {
-        return CommonResult.success(sxOrdersService.insertOrder(list,address,message,hopeTime));
+    public CommonResult insertOrder(@RequestParam("list") List<Integer> list, @RequestParam("addressId")Integer address, @RequestParam("message") String message, @RequestParam("hopeTime") Date hopeTime) {
+        return CommonResult.success(sxOrdersService.insertOrder(list, address, message, hopeTime));
     }
 
 
     @GetMapping("findSubOrders")//当传入类型时按类型查询。未传入类型时默认查询所有的数据
-    public CommonResult findSubOrders(Integer type){
+    public CommonResult findSubOrders(Integer type) {
         return CommonResult.success(sxOrdersService.findSubOrders(type));
+    }
+
+    @GetMapping("findOrdersInfo")//当传入类型时按类型查询。未传入类型时默认查询所有的数据
+    public CommonResult findOrdersInfo(Integer id) {
+        return CommonResult.success(sxOrdersService.findOrdersInfo(id));
     }
 }

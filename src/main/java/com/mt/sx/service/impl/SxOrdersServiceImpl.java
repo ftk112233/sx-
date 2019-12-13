@@ -23,6 +23,8 @@ import static com.mt.sx.common.util.UUIDGenerator.getUUId;
 @Service
 public class SxOrdersServiceImpl implements SxOrdersService {
     @Resource
+    SxAddressInfoMapper sxAddressInfoMapper;
+    @Resource
     SxSubOrderMapper sxSubOrderMapper;
     @Resource
     SxProductMapper sxProductMapper;
@@ -62,7 +64,7 @@ public class SxOrdersServiceImpl implements SxOrdersService {
 
 
     @Override
-    public CommonResult insertOrder(List<Integer> list, String address, String message, Date hopeTime) {//返回的时购物车的列表,此功能一次创建三张表
+    public CommonResult insertOrder(List<Integer> list, Integer addressId, String message, Date hopeTime) {//返回的时购物车的列表,此功能一次创建三张表
         ArrayList<Integer> buslist = new ArrayList<>();
         List<SxCart> list1 = sxCartMapper.selectByIdList(list);
         BigDecimal totalPrices = new BigDecimal("0.00");
@@ -82,7 +84,7 @@ public class SxOrdersServiceImpl implements SxOrdersService {
         sxOrder.setTotalPrice(totalPrices);
         sxOrder.setCreateTime(new Date());
         sxOrder.setTotalNumber(num);
-        sxOrder.setAddress(address);
+        sxOrder.setAddressId(addressId);
         sxOrder.setMessage(message);
         sxOrder.setHopeTime(hopeTime);
         sxOrder.setType(0);
@@ -174,7 +176,7 @@ public class SxOrdersServiceImpl implements SxOrdersService {
                     sxSubOrderVo.setType(order.getType());
                     sxSubOrderVo.setBusinessId(sxProduct.getBusinessId());
                     //
-                    //
+                    //假的用户id
                     //下面是用户id
                     sxSubOrderVo.setShopId(1);
                     sxSubOrderVo.setPrices(subOrder.getPrices());
@@ -182,11 +184,20 @@ public class SxOrdersServiceImpl implements SxOrdersService {
                     sxSubOrderVo.setPrice(sxProduct.getPrice());
                     sxSubOrderVo.setSuborderId(subOrder.getSuborderId());
                     sxSubOrderVo.setOrderId(order.getId());
+                    SxAddressInfo sxAddressInfo = sxAddressInfoMapper.selectByPrimaryKey(order.getAddressId());
+                    sxSubOrderVo.setAddress(sxAddressInfo.getAddress());
+                    sxSubOrderVo.setName(sxAddressInfo.getName());
+                    sxSubOrderVo.setTelephone(sxAddressInfo.getTelephone());
                     listOrder.add(sxSubOrderVo);
                 }
             }
         }
         return listOrder;
+    }
+
+    @Override
+    public SxOrderInfo findOrdersInfo(Integer id) {
+        return sxOrderInfoMapper.selectByPrimaryKey(id);
     }
 
 }

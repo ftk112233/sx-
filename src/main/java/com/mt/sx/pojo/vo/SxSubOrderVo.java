@@ -15,4 +15,7 @@ public class SxSubOrderVo extends SxSubOrder {
     private Integer num;
     private Integer type;//状态
     private String businessName;
+    private String name;
+    private String telephone;
+    private String address;
 }
