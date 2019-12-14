@@ -24,8 +24,8 @@ public class SxOrdersController {
     }
 
     @PostMapping("insertOrder")
-    public CommonResult insertOrder(@RequestParam("list") List<Integer> list, @RequestParam("addressId")Integer address, @RequestParam("message") String message, @RequestParam("hopeTime") Date hopeTime) {
-        return CommonResult.success(sxOrdersService.insertOrder(list, address, message, hopeTime));
+    public CommonResult insertOrder(@RequestParam("list") List<Integer> list, @RequestParam("addressId")Integer addressId, @RequestParam("message") String message, @RequestParam("hopeTime") Date hopeTime) {
+        return CommonResult.success(sxOrdersService.insertOrder(list, addressId, message, hopeTime));
     }
 
 

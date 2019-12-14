@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/passby")
-public class SxpassbyController {
+@RequestMapping("/passBy")
+public class SxpassByController {
     @Autowired
     SxpassbyService sxpassbyService;
 
@@ -22,7 +22,7 @@ public class SxpassbyController {
         return CommonResult.success(sxpassbyService.insert(sxPassby));
     }
 
-    @PostMapping("/insert")
+    @PostMapping("/update")
     public CommonResult update(SxPassby sxPassby){
         return CommonResult.success(sxpassbyService.update(sxPassby));
     }
