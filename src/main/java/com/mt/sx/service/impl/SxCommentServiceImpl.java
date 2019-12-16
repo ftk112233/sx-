@@ -65,4 +65,13 @@ public class SxCommentServiceImpl implements SxCommentService {
         sxComment.setProductId(productId);
         return sxCommentMapper.select(sxComment);
     }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    @Override
+    public void batchDelete(List<Integer> ids) {
+        sxCommentMapper.deleteByIdList(ids);
+    }
 }

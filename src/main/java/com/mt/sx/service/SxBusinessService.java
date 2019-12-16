@@ -17,5 +17,7 @@ public interface SxBusinessService {
 
     List<SxBusiness> list(SxBusiness sxBusiness);
 
+    void batchDelete(List<Integer> ids);
+
 
 }

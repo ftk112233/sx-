@@ -15,4 +15,6 @@ public interface SxCategoryService {
 
     SxCategory findById(Integer id);
 
+    void batchDelete(List<Integer> ids);
+
 }

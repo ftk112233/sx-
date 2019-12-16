@@ -5,6 +5,7 @@ import com.mt.sx.mapper.SxBusinessRoleMapper;
 import com.mt.sx.pojo.SxBusiness;
 import com.mt.sx.pojo.SxBusinessRole;
 import com.mt.sx.service.SxBusinessService;
+import io.netty.handler.ssl.IdentityCipherSuiteFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,5 +93,14 @@ public class SxBusinessServiceImpl implements SxBusinessService {
     @Override
     public SxBusiness findById(Integer id) {
         return sxBusinessMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    @Override
+    public void batchDelete(List<Integer> ids) {
+        sxBusinessMapper.deleteByIdList(ids);
     }
 }

@@ -67,4 +67,13 @@ public class SxSpecsWayServiceImpl implements SxSpecsWayService {
 
         return  sxSpecsWayMapper.selectByPrimaryKey(id);
     }
+
+    /**
+     * 批量删除售卖方式
+     * @param ids
+     */
+    @Override
+    public void batchDelete(List<Integer> ids) {
+       sxSpecsWayMapper.deleteByIdList(ids);
+    }
 }

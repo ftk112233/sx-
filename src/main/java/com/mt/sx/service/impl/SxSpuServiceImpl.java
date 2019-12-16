@@ -80,4 +80,13 @@ public class SxSpuServiceImpl implements SxSpuService {
     public SxSpu findById(Integer id) {
         return sxSpuMapper.selectByPrimaryKey(id);
     }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    @Override
+    public void batchDelete(List<Integer> ids) {
+       sxSpuMapper.deleteByIdList(ids);
+    }
 }

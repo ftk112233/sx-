@@ -14,4 +14,6 @@ public interface SxSpecsUnitService {
     Integer delete(Integer id);
 
     SxSpecsUnit findById(Integer id);
+
+    void batchDelete(List<Integer> ids);
 }

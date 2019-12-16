@@ -15,5 +15,7 @@ public interface SxCommentService {
 
     List<SxComment> findByProductId(Integer productId);
 
+    void batchDelete(List<Integer> ids);
+
 
 }

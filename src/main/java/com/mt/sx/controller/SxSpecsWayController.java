@@ -5,10 +5,7 @@ import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.pojo.SxSpecsWay;
 import com.mt.sx.service.SxSpecsWayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -75,5 +72,19 @@ public class SxSpecsWayController {
     @GetMapping("findById")
     public CommonResult<SxSpecsWay> findById(Integer id){
         return CommonResult.success(sxSpecsWayService.findById(id));
+    }
+    /**
+     * 批量删除
+     */
+    @PostMapping("/batchDelete")
+    public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids){
+        try {
+            sxSpecsWayService.batchDelete(ids);
+            return CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.DELETE_FALSE);
+        }
+
     }
 }

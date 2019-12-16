@@ -1,7 +1,11 @@
 package com.mt.sx.pojo;
 
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Table;
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "sx_business_role")
 public class SxBusinessRole {
     /**

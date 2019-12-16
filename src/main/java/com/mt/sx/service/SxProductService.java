@@ -23,5 +23,7 @@ public interface SxProductService {
 
     SxProduct findById(Integer id);
 
+    void batchDelete(List<Integer> ids);
+
 
 }

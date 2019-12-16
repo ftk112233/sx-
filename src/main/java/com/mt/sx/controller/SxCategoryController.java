@@ -97,5 +97,20 @@ public class SxCategoryController {
         return CommonResult.success(sxCategoryService.findById(id));
     }
 
+    /**
+     * 批量删除大分类
+     */
+    @PostMapping("/batchDelete")
+    public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids){
+        try {
+            sxCategoryService.batchDelete(ids);
+            return CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.DELETE_FALSE);
+        }
+
+    }
+
 
 }

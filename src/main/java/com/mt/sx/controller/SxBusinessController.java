@@ -15,16 +15,31 @@ public class SxBusinessController {
     @Autowired
     SxBusinessService sxBusinessService;
 
+    /**
+     * 查询所有商户
+     * @param sxBusiness
+     * @return
+     */
     @GetMapping("/list")
     public CommonResult<List<SxBusiness>> list(SxBusiness sxBusiness){
        return CommonResult.success( sxBusinessService.list(sxBusiness));
     }
 
+    /**
+     * 根据id查询商户
+     * @param id
+     * @return
+     */
     @GetMapping("/findById")
     public CommonResult<SxBusiness> findById(@RequestParam("id") Integer id){
         return  CommonResult.success(sxBusinessService.findById(id));
     }
 
+    /**
+     * 更新商户
+     * @param sxBusiness
+     * @return
+     */
     @PostMapping("/update")
     public CommonResult update(SxBusiness sxBusiness){
         try {
@@ -36,6 +51,11 @@ public class SxBusinessController {
         }
     }
 
+    /**
+     * 增加商户
+     * @param sxBusiness
+     * @return
+     */
     @PostMapping("/insert")
     public CommonResult insert(SxBusiness sxBusiness){
         try {
@@ -47,8 +67,35 @@ public class SxBusinessController {
         }
     }
 
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     @PostMapping("/delete")
     public CommonResult delete(Integer id){
-      return  null;
+        try {
+            sxBusinessService.delete(id);
+            return  CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.DELETE_FALSE);
+        }
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    @PostMapping("/batchDelete")
+    public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids){
+        try {
+            sxBusinessService.batchDelete(ids);
+            return CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.DELETE_FALSE);
+        }
     }
 }

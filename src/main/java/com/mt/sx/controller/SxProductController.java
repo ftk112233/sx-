@@ -9,6 +9,8 @@ import com.mt.sx.service.SxProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class SxProductController {
@@ -101,8 +103,28 @@ public class SxProductController {
         return CommonResult.success(sxProductService.search(name,page,pageSize));
     }
 
+    /**
+     * 根据id查询商品
+     * @param id
+     * @return
+     */
     @GetMapping("/findById")
     public CommonResult<SxProduct> findById(@RequestParam("id") Integer id){
         return CommonResult.success(sxProductService.findById(id));
+    }
+
+    /**
+     * 批量删除
+     */
+    @PostMapping("/batchDelete")
+    public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids){
+        try {
+            sxProductService.batchDelete(ids);
+            return CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.DELETE_FALSE);
+        }
+
     }
 }

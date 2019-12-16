@@ -148,4 +148,13 @@ public class SxProductServiceImpl implements SxProductService {
     public SxProduct findById(Integer id) {
         return sxProductMapper.selectByPrimaryKey(id);
     }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    @Override
+    public void batchDelete(List<Integer> ids) {
+        sxProductMapper.deleteByIdList(ids);
+    }
 }

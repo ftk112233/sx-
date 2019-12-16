@@ -56,4 +56,19 @@ public class SxCommentController {
     public CommonResult<List<SxComment>> findByProductId(@RequestParam("productId") Integer productId){
         return CommonResult.success(sxCommentService.findByProductId(productId));
     }
+
+    /**
+     * 批量删除
+     */
+    @PostMapping("/batchDelete")
+    public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids){
+        try {
+            sxCommentService.batchDelete(ids);
+            return CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.DELETE_FALSE);
+        }
+
+    }
 }

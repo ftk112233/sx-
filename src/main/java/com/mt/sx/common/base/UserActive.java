@@ -10,6 +10,6 @@ import java.util.List;
 @Data
 public class UserActive {
    private SxBusiness business;
-   private List<Role> roles;
-   private List<Permission> permissions;
+   private List<String> roles;
+   private List<String> permissions;
 }

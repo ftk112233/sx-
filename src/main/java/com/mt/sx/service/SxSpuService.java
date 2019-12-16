@@ -16,4 +16,6 @@ public interface SxSpuService {
     List<SxSpu> findByCategoryId(Integer categoryId);
 
     SxSpu findById(Integer id);
+
+    void batchDelete(List<Integer> ids);
 }

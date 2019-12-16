@@ -14,4 +14,6 @@ public interface SxSpecsWayService {
     Integer delete(Integer id);
 
     SxSpecsWay findById(Integer id);
+
+    void batchDelete(List<Integer> ids);
 }

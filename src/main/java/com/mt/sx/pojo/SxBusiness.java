@@ -1,7 +1,7 @@
 package com.mt.sx.pojo;
 
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "sx_business")
 public class SxBusiness {
@@ -21,6 +21,11 @@ public class SxBusiness {
      * 商户密码
      */
     private String password;
+
+    /**
+     * 盐
+     */
+    private String solt;
 
     /**
      * 店铺logo
@@ -113,6 +118,24 @@ public class SxBusiness {
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 获取盐
+     *
+     * @return solt - 盐
+     */
+    public String getSolt() {
+        return solt;
+    }
+
+    /**
+     * 设置盐
+     *
+     * @param solt 盐
+     */
+    public void setSolt(String solt) {
+        this.solt = solt == null ? null : solt.trim();
     }
 
     /**

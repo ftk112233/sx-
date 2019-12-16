@@ -67,4 +67,13 @@ public class SxSpecsUnitServiceImpl implements SxSpecsUnitService {
     public SxSpecsUnit findById(Integer id) {
         return sxSpecsUnitMapper.selectByPrimaryKey(id);
     }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    @Override
+    public void batchDelete(List<Integer> ids) {
+        sxSpecsUnitMapper.deleteByIdList(ids);
+    }
 }

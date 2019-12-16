@@ -89,8 +89,16 @@ system:
 logging:
   level:
     com:
-      mt:
-        portalcms:
-          mapper: debug
+      sx:
+       mapper: debug
+
+
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
 
 
