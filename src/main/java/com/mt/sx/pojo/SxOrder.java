@@ -1,16 +1,14 @@
 package com.mt.sx.pojo;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "sx_order")
 public class SxOrder {
     /**
      * 订单id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     /**
@@ -67,7 +65,8 @@ public class SxOrder {
     /**
      * 地址
      */
-    private String address;
+    @Column(name = "address_id")
+    private Integer addressId;
 
     /**
      * 买家留言
@@ -281,19 +280,19 @@ public class SxOrder {
     /**
      * 获取地址
      *
-     * @return address - 地址
+     * @return address_id - 地址
      */
-    public String getAddress() {
-        return address;
+    public Integer getAddressId() {
+        return addressId;
     }
 
     /**
      * 设置地址
      *
-     * @param address 地址
+     * @param addressId 地址
      */
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
     /**
