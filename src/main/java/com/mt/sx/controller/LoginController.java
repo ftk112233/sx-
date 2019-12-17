@@ -15,9 +15,11 @@ import org.apache.shiro.subject.Subject;
 import org.omg.CORBA.COMM_FAILURE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 @RestController
@@ -51,6 +53,14 @@ public class LoginController {
         }
 
     }
+
+    @GetMapping("/logout")
+    public CommonResult logout(HttpServletRequest request){
+        String token = request.getHeader("token");
+        redisUtil.del(token);
+        return CommonResult.success(ResponseCode.LOGOUT);
+    }
+
 
 
 }
