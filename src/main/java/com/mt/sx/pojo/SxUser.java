@@ -43,7 +43,7 @@ public class SxUser implements Serializable {
      * 关联的用户或商家id
      */
     @Column(name = "relate_id")
-    private String relateId;
+    private Integer relateId;
 
     /**
      * 微信传递过来的开放id
@@ -164,7 +164,7 @@ public class SxUser implements Serializable {
      *
      * @return relate_id - 关联的用户或商家id
      */
-    public String getRelateId() {
+    public Integer getRelateId() {
         return relateId;
     }
 
@@ -173,8 +173,8 @@ public class SxUser implements Serializable {
      *
      * @param relateId 关联的用户或商家id
      */
-    public void setRelateId(String relateId) {
-        this.relateId = relateId == null ? null : relateId.trim();
+    public void setRelateId(Integer relateId) {
+        this.relateId = relateId;
     }
 
     /**

@@ -29,4 +29,6 @@ public class UserUtils {
     public  static SxUser getUser(){
         return getUserActice().getUser();
     }
+
+
 }

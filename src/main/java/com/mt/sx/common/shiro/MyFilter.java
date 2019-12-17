@@ -49,7 +49,7 @@ public class MyFilter extends BasicHttpAuthenticationFilter {
         }
 
         // 刷新过期时间
-        redisUtil.expire("token:" + token, 1800);
+        redisUtil.expire("token:" + token, 3600);
         return true;
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 
 import static com.mt.sx.common.util.CommonUtils.removeDuplicateWithOrder;
 import static com.mt.sx.common.util.UUIDGenerator.getUUId;
+import static com.mt.sx.common.util.UserUtils.getUser;
 
 @Service
 public class SxOrdersServiceImpl implements SxOrdersService {
@@ -77,10 +78,8 @@ public class SxOrdersServiceImpl implements SxOrdersService {
             BigDecimal prices = sxCart.getPrices();
             totalPrices = totalPrices.add(prices);
         }
-        // // YsShop user = (YsShop) redis.get("username");
-        //////        //sxCart.setShopId(user.getId());
-        //////        //以上为正式代码，这里用假数据1进行测试
-        sxOrder.setShopId(1);
+        SxUser user = getUser();
+        sxOrder.setShopId(user.getRelateId());
         sxOrder.setTotalPrice(totalPrices);
         sxOrder.setCreateTime(new Date());
         sxOrder.setTotalNumber(num);
@@ -109,10 +108,8 @@ public class SxOrdersServiceImpl implements SxOrdersService {
             String s = String.valueOf(getUUId());
             sxSubOrder.setSuborderId(s);
             sxSubOrder.setPrices(total);
-            // // YsShop user = (YsShop) redis.get("username");
-            //////        //sxCart.setShopId(user.getId());
-            //////        //以上为正式代码，这里用假数据1进行测试
-            sxSubOrder.setShopId(1);
+            SxUser sxUser = getUser();
+            sxSubOrder.setShopId(sxUser.getRelateId());
             total = new BigDecimal("0.00");
             sxSubOrder.setCreateTime(new Date());
             sxSubOrder.setBusinessId(businessId);
@@ -129,22 +126,20 @@ public class SxOrdersServiceImpl implements SxOrdersService {
             }
             sxSubOrderMapper.insert(sxSubOrder);
         }
-
         return CommonResult.success("创建成功");
     }
 
 
     @Override
     public List<SxSubOrderVo> findSubOrders(Integer type) {//根据type状态来查询所有的不同属性订单，如果type为空，查询所有
-        // YsShop user = (YsShop) redis.get("username");
-        //sxCart.setShopId(user.getId());
+        SxUser sxUser = getUser();
         //以上为正式代码，这里用假数据1进行测试
         //先进行数据的查询与归类，用SxSubOrderVo接收数据
         //一定要创建一个vo对象实体去查询 不然查不了
         Example example = new Example(SxOrder.class);
         example.orderBy("createTime").desc();
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("shopId", 1)
+        criteria.andEqualTo("shopId", sxUser.getRelateId())
                 .andEqualTo("status", 0)
                 .andEqualTo("deleted", 0);
         if (type != null) {
@@ -175,10 +170,7 @@ public class SxOrdersServiceImpl implements SxOrdersService {
                     sxSubOrderVo.setNum(orderInfo.getNumber());
                     sxSubOrderVo.setType(order.getType());
                     sxSubOrderVo.setBusinessId(sxProduct.getBusinessId());
-                    //
-                    //假的用户id
-                    //下面是用户id
-                    sxSubOrderVo.setShopId(1);
+                    sxSubOrderVo.setShopId(sxUser.getRelateId());
                     sxSubOrderVo.setPrices(subOrder.getPrices());
                     sxSubOrderVo.setBusinessName(sxBusinessMapper.selectByPrimaryKey(sxProduct.getBusinessId()).getName());
                     sxSubOrderVo.setPrice(sxProduct.getPrice());

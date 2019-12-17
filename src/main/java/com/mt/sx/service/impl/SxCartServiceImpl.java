@@ -8,6 +8,7 @@ import com.mt.sx.mapper.SxProductMapper;
 import com.mt.sx.pojo.SxBusiness;
 import com.mt.sx.pojo.SxCart;
 import com.mt.sx.pojo.SxProduct;
+import com.mt.sx.pojo.SxUser;
 import com.mt.sx.pojo.vo.SxCartVo;
 import com.mt.sx.service.SxCartService;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static com.mt.sx.common.util.CommonUtils.removeDuplicateWithOrder;
+import static com.mt.sx.common.util.UserUtils.getUser;
 
 @Service
 public class SxCartServiceImpl implements SxCartService {
@@ -35,10 +37,8 @@ public class SxCartServiceImpl implements SxCartService {
         SxProduct sxProduct = sxProductMapper.selectByPrimaryKey(id);
         SxCartVo sxCartVo = new SxCartVo();
         sxCartVo.setProductId(sxProduct.getId());
-        // YsShop user = (YsShop) redis.get("username");
-        //sxCart.setShopId(user.getId());
-        //以上为正式代码，这里用假数据进行测试
-        sxCartVo.setShopId(1);
+        SxUser sxUser = getUser();
+        sxCartVo.setShopId(sxUser.getRelateId());
         sxCartVo.setNumber(num);
         sxCartVo.setBusinessId(sxProduct.getBusinessId());
         sxCartVo.setPrices(sxProduct.getPrice().multiply(new BigDecimal(Integer.toString(num))));
@@ -69,10 +69,11 @@ public class SxCartServiceImpl implements SxCartService {
 
 
     @Override
-    public CommonResult<ArrayList<List<SxCartVo>>> findCartInfoById(Integer id) {//这个id是用户的id,shopId
+    public CommonResult<ArrayList<List<SxCartVo>>> findCartInfoById() {//这个id是用户的id,shopId
+        SxUser sxUser = getUser();
         Example example = new Example(SxCart.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("shopId", id);
+        criteria.andEqualTo("shopId", sxUser.getRelateId());
         example.orderBy("updateTime").desc();
         List<SxCart> sxCarts = sxCartMapper.selectByExample(example);//shopid就是用户的id，现在要根据用户的id查出店铺的id
         ArrayList<Integer> buslist = new ArrayList<>();
@@ -92,7 +93,7 @@ public class SxCartServiceImpl implements SxCartService {
                 sxCartVo.setNumber(sxCartMapper.selectByPrimaryKey(selectCart.getId()).getNumber());//购物车中添加的数量
                 sxCartVo.setId(selectCart.getId());//购物车id
                 sxCartVo.setPrices(selectCart.getPrices());//当前购物车总价格
-                sxCartVo.setShopId(selectCart.getShopId());//买家id
+                sxCartVo.setShopId(sxUser.getRelateId());//买家id
                 sxCartVo.setBusinessId(selectCart.getBusinessId());//卖家id
                 sxCartVo.setProductId(selectCart.getProductId());//产品id
                 sxCartVo.setBusinessShopName(sxBusinessMapper.selectByPrimaryKey(selectCart.getBusinessId()).getName());//卖家店铺名称

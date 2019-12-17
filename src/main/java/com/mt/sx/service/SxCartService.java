@@ -15,7 +15,7 @@ public interface SxCartService {
 
     Integer update(Integer id, Integer num);
 
-    CommonResult<ArrayList<List<SxCartVo>>> findCartInfoById(Integer id);
+    CommonResult<ArrayList<List<SxCartVo>>> findCartInfoById();
 
     Integer deletedByCartId(Integer id);
 

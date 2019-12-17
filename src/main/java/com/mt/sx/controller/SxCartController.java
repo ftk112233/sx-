@@ -32,8 +32,8 @@ public class SxCartController {
 
     //根据用户的id查询购物车的列表
     @GetMapping("findCartInfo")
-    public CommonResult findCartInfoById(Integer id) {
-        return CommonResult.success(sxCartService.findCartInfoById(id));
+    public CommonResult findCartInfoById() {
+        return CommonResult.success(sxCartService.findCartInfoById());
     }
 
     @PostMapping("delete")

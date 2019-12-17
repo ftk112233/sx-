@@ -37,6 +37,7 @@ public class SxUserServiceImpl implements SxUserService {
         String salt= IdUtil.simpleUUID().toUpperCase();
         sxUser.setSalt(salt);//设置盐
         sxUser.setPassword(new Md5Hash(sxUser.getPassword(), salt, 2).toString());
+//        sxUser.setOpenId();  先不加，等以后用户授权之后一并传入进来
         sxUserMapper.insertSelective(sxUser);
 
     }
