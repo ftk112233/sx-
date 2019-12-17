@@ -1,10 +1,11 @@
 package com.mt.sx.pojo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "ys_shop")
-public class YsShop {
+public class YsShop  implements Serializable {
     /**
      * 自增id
      */

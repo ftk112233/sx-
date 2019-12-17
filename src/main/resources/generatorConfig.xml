@@ -51,7 +51,7 @@
 
 
 
-        <table tableName="sx_business"></table>
+        <table tableName="sx_user_role"></table>
 
 
 

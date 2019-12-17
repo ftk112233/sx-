@@ -1,17 +1,16 @@
 package com.mt.sx.service.impl;
 
-import com.mt.sx.common.util.BusinessUtils;
-import com.mt.sx.mapper.SxBusinessRoleMapper;
 import com.mt.sx.mapper.SxRoleMapper;
 import com.mt.sx.mapper.SxRolePermissionMapper;
-import com.mt.sx.pojo.SxBusinessRole;
+import com.mt.sx.mapper.SxUserRoleMapper;
 import com.mt.sx.pojo.SxRole;
 import com.mt.sx.pojo.SxRolePermission;
+import com.mt.sx.pojo.SxUserRole;
+import com.mt.sx.pojo.vo.SxRoleVo;
 import com.mt.sx.service.SxRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +20,7 @@ public class SxRoleServiceImpl implements SxRoleService {
     @Autowired
     SxRoleMapper sxRoleMapper;
     @Autowired
-    SxBusinessRoleMapper sxBusinessRoleMapper;
+    SxUserRoleMapper sxUserRoleMapper;
     @Autowired
     SxRolePermissionMapper sxRolePermissionMapper;
 
@@ -30,7 +29,7 @@ public class SxRoleServiceImpl implements SxRoleService {
      * @return
      */
     @Override
-    public List<SxRole> list(SxRole sxRole) {
+    public List<SxRole> list(SxRoleVo sxRoleVo) {
         return sxRoleMapper.selectAll();
     }
 
@@ -43,8 +42,6 @@ public class SxRoleServiceImpl implements SxRoleService {
         Date date=new Date();
         sxRole.setCreateTime(date);
         sxRole.setUpdateTime(date);
-        sxRole.setCreateBy(BusinessUtils.getBusiness().getName());
-        sxRole.setUpdateBy(BusinessUtils.getBusiness().getName());
         sxRoleMapper.insertSelective(sxRole);
     }
 
@@ -55,7 +52,6 @@ public class SxRoleServiceImpl implements SxRoleService {
     @Override
     public void update(SxRole sxRole) {
         sxRole.setUpdateTime(new Date());
-        sxRole.setUpdateBy(BusinessUtils.getBusiness().getName());
         sxRoleMapper.updateByPrimaryKeySelective(sxRole);
     }
 
@@ -66,13 +62,13 @@ public class SxRoleServiceImpl implements SxRoleService {
     @Override
     public void delete(Integer id) {
         //先删除两张中间表关联的数据
-        SxBusinessRole sxBusinessRole=new SxBusinessRole();
-        sxBusinessRole.setRid(id);
-        sxBusinessRoleMapper.delete(sxBusinessRole);
+        SxUserRole sxUserRole=new SxUserRole();
+        sxUserRole.setRid(id);
+        sxUserRoleMapper.delete(sxUserRole);
         SxRolePermission sxRolePermission=new SxRolePermission();
         sxRolePermission.setRid(id);
         sxRolePermissionMapper.delete(sxRolePermission);
-        sxBusinessRoleMapper.deleteByPrimaryKey(id);
+        sxRoleMapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -115,13 +111,13 @@ public class SxRoleServiceImpl implements SxRoleService {
     @Override
     public List<SxRole> allRolesByBid(Integer id) {
         //先查询出商户拥有的角色id
-        SxBusinessRole sxBusinessRole=new SxBusinessRole();
-        sxBusinessRole.setBid(id);
-        List<SxBusinessRole> sxBusinessRoleList = sxBusinessRoleMapper.select(sxBusinessRole);
+        SxUserRole sxUserRole=new SxUserRole();
+        sxUserRole.setUid(id);
+        List<SxUserRole> sxUserRoleList = sxUserRoleMapper.select(sxUserRole);
 
         List<SxRole> roleList=new ArrayList();
-        for (SxBusinessRole businessRole:sxBusinessRoleList){
-            SxRole sxRole = sxRoleMapper.selectByPrimaryKey(businessRole.getRid());
+        for (SxUserRole userRole:sxUserRoleList){
+            SxRole sxRole = sxRoleMapper.selectByPrimaryKey(userRole.getRid());
             roleList.add(sxRole);
         }
         return roleList;

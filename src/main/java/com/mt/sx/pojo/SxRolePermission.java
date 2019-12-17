@@ -5,10 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Table;
+import java.io.Serializable;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sx_role_permission")
-public class SxRolePermission {
+public class SxRolePermission  implements Serializable {
     /**
      * 角色id
      */

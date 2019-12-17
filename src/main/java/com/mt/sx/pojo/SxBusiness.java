@@ -1,10 +1,11 @@
 package com.mt.sx.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sx_business")
-public class SxBusiness {
+public class SxBusiness implements Serializable {
     /**
      * 卖家自增id
      */
@@ -25,7 +26,7 @@ public class SxBusiness {
     /**
      * 盐
      */
-    private String solt;
+    private String salt;
 
     /**
      * 店铺logo
@@ -123,19 +124,19 @@ public class SxBusiness {
     /**
      * 获取盐
      *
-     * @return solt - 盐
+     * @return salt - 盐
      */
-    public String getSolt() {
-        return solt;
+    public String getSalt() {
+        return salt;
     }
 
     /**
      * 设置盐
      *
-     * @param solt 盐
+     * @param salt 盐
      */
-    public void setSolt(String solt) {
-        this.solt = solt == null ? null : solt.trim();
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
     }
 
     /**

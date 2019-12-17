@@ -1,10 +1,11 @@
 package com.mt.sx.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sx_passby")
-public class SxPassby {
+public class SxPassby  implements Serializable {
     /**
      * 配送人员自增id
      */

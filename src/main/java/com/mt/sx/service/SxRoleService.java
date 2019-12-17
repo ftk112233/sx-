@@ -1,11 +1,12 @@
 package com.mt.sx.service;
 
 import com.mt.sx.pojo.SxRole;
+import com.mt.sx.pojo.vo.SxRoleVo;
 
 import java.util.List;
 
 public interface SxRoleService {
-    List<SxRole> list(SxRole sxRole);
+    List<SxRole> list(SxRoleVo sxRoleVo);
 
     void insert(SxRole sxRole);
 

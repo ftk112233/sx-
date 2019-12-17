@@ -1,10 +1,11 @@
 package com.mt.sx.pojo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "sx_comment")
-public class SxComment {
+public class SxComment  implements Serializable {
     /**
      * 自增id
      */

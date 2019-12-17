@@ -5,7 +5,6 @@ import com.mt.sx.pojo.SxBusiness;
 import java.util.List;
 
 public interface SxBusinessService {
-    SxBusiness findByName(String username);
 
     void insert(SxBusiness sxBusiness);
 

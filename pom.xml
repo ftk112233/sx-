@@ -17,6 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <shiro.version>1.4.1</shiro.version>
+        <jwt.auth0.version>3.2.0</jwt.auth0.version>
     </properties>
 
     <dependencies>
@@ -51,6 +52,12 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>4.6.2</version>
+        </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.54</version>
         </dependency>
 
         <dependency>
@@ -112,6 +119,12 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
             <version>${shiro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.auth0.version}</version>
         </dependency>
 
 

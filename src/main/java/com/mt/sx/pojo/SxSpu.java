@@ -1,10 +1,11 @@
 package com.mt.sx.pojo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "sx_spu")
-public class SxSpu {
+public class SxSpu  implements Serializable {
     /**
      * 自增id
      */

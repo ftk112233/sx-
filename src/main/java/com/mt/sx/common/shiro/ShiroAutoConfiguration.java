@@ -5,9 +5,11 @@ import lombok.Data;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.mgt.SessionStorageEvaluator;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -73,30 +75,45 @@ public class ShiroAutoConfiguration {
     @Bean(SHIRO_FILTER)
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+        Map<String, Filter> filterMap = new HashMap<>(16);
+        filterMap.put("jwt", new MyFilter());
+        factoryBean.setFilters(filterMap);
         // 设置安全管理器
         factoryBean.setSecurityManager(securityManager);
+
+
         // 设置未登陆的时要跳转的页面
         //factoryBean.setLoginUrl(loginUrl);
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
         // 设置放行的路径
 
-        filterChainDefinitionMap.put("/login/login", "anon");
+        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/user/insert", "anon");
 
         // 设置登出的路径
 
-        filterChainDefinitionMap.put("/login/logout", "logout");
+        filterChainDefinitionMap.put("/logout", "logout");
 
         // 设置拦截的路径
 
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "jwt");
 
-        Map<String, Filter> filters = new HashMap<>();
-//		filters.put("authc", new ShiroLoginFilter());
-        //配置过滤器
-        factoryBean.setFilters(filters);
+
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return factoryBean;
     }
+
+    /**
+     * 禁用session, 不保存用户登录状态。保证每次请求都重新认证。
+     * 需要注意的是，如果用户代码里调用Subject.getSession()还是可以用session，如果要完全禁用，要配合下面的noSessionCreation的Filter来实现
+     */
+    @Bean
+    protected SessionStorageEvaluator sessionStorageEvaluator(){
+        DefaultWebSessionStorageEvaluator sessionStorageEvaluator = new DefaultWebSessionStorageEvaluator();
+        sessionStorageEvaluator.setSessionStorageEnabled(false);
+        return sessionStorageEvaluator;
+    }
+
 
     /**
      * 注册shiro的委托过滤器，相当于之前在web.xml里面配置的

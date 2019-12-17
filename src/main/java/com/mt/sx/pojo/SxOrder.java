@@ -1,11 +1,12 @@
 package com.mt.sx.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sx_order")
-public class SxOrder {
+public class SxOrder  implements Serializable {
     /**
      * 订单id
      */

@@ -4,6 +4,7 @@ import com.mt.sx.common.base.CommonResult;
 import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.mapper.SxRoleMapper;
 import com.mt.sx.pojo.SxRole;
+import com.mt.sx.pojo.vo.SxRoleVo;
 import com.mt.sx.service.SxRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class SxRoleController {
      * @return
      */
     @GetMapping("/list")
-    public CommonResult<List<SxRole>> list(){
-        return CommonResult.success(sxRoleService.list());
+    public CommonResult<List<SxRole>> list(SxRoleVo sxRoleVo){
+        return CommonResult.success(sxRoleService.list(sxRoleVo));
     }
 
     /**

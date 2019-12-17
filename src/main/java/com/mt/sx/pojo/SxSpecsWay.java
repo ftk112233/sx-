@@ -1,10 +1,11 @@
 package com.mt.sx.pojo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "sx_specs_way")
-public class SxSpecsWay {
+public class SxSpecsWay  implements Serializable {
     /**
      * 自增id
      */

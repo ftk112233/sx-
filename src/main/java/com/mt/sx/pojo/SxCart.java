@@ -1,11 +1,12 @@
 package com.mt.sx.pojo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Table(name = "sx_cart")
-public class SxCart {
+public class SxCart  implements Serializable {
     /**
      * 自增id
      */

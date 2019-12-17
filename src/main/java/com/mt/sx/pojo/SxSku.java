@@ -1,11 +1,12 @@
 package com.mt.sx.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sx_sku")
-public class SxSku {
+public class SxSku  implements Serializable {
     /**
      * 自增id
      */

@@ -5,9 +5,11 @@ import com.mt.sx.common.base.UserActive;
 import com.mt.sx.pojo.SxBusiness;
 import com.mt.sx.pojo.SxPermission;
 import com.mt.sx.pojo.SxRole;
+import com.mt.sx.pojo.SxUser;
 import com.mt.sx.service.SxBusinessService;
 import com.mt.sx.service.SxPermissionService;
 import com.mt.sx.service.SxRoleService;
+import com.mt.sx.service.SxUserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -28,7 +30,7 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Autowired
 	@Lazy  //只有使用的时候才会加载 
-	private SxBusinessService sxBusinessService;
+	private SxUserService sxUserService;
 	
 	@Autowired
 	@Lazy
@@ -50,12 +52,12 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
 		String username=(String)token.getPrincipal();
-		SxBusiness business = sxBusinessService.findByName(username);
-		if (null != business) {
+		SxUser user = sxUserService.findByName(username);
+		if (null != user) {
 			UserActive userActive=new UserActive();
-			userActive.setBusiness(business);
+			userActive.setUser(user);
 			//获取拥有的角色
-			List<SxRole> roles = sxRoleService.allRolesByBid(business.getId());
+			List<SxRole> roles = sxRoleService.allRolesByBid(user.getId());
 			//角色名集合
 			List<String> roleNames=new ArrayList<>();
 			//权限名集合
@@ -72,8 +74,8 @@ public class UserRealm extends AuthorizingRealm {
 			userActive.setRoles(roleNames);
 			userActive.setPermissions(permissionName);
 			//获取盐
-			String solt=business.getSolt();
-			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userActive, business.getPassword(), ByteSource.Util.bytes(solt),
+			String salt=user.getSalt();
+			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userActive, user.getPassword(), ByteSource.Util.bytes(salt),
 					this.getName());
 			return info;
 		}
@@ -87,7 +89,6 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		SimpleAuthorizationInfo authorizationInfo=new SimpleAuthorizationInfo();
 		UserActive userActive=(UserActive) principals.getPrimaryPrincipal();
-		SxBusiness business=userActive.getBusiness();
 		List<String> roles=userActive.getRoles();
 		List<String> permissions = userActive.getPermissions();
 
