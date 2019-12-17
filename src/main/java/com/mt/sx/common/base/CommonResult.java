@@ -71,4 +71,6 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> fail(Integer code, String msg) {
         return new CommonResult<>(code, msg, null);
     }
+
+
 }

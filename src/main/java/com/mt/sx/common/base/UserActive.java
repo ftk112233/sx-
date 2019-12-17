@@ -8,10 +8,11 @@ import javax.management.relation.Role;
 import java.io.Serializable;
 import java.security.Permission;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class UserActive implements Serializable {
    private SxUser user;
-   private List<String> roles;
-   private List<String> permissions;
+   private Set<String> roles;
+   private Set<String> permissions;
 }

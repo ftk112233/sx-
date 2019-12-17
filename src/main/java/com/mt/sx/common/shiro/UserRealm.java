@@ -23,83 +23,89 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class UserRealm extends AuthorizingRealm {
 
-	@Autowired
-	@Lazy  //只有使用的时候才会加载 
-	private SxUserService sxUserService;
-	
-	@Autowired
-	@Lazy
-	private SxPermissionService sxPermissionService;
+    @Autowired
+    @Lazy  //只有使用的时候才会加载
+    private SxUserService sxUserService;
 
-	@Autowired
-	@Lazy
-	private SxRoleService sxRoleService;
+    @Autowired
+    @Lazy
+    private SxPermissionService sxPermissionService;
 
-	@Override
-	public String getName() {
-		return this.getClass().getSimpleName();
-	}
+    @Autowired
+    @Lazy
+    private SxRoleService sxRoleService;
 
-	/**
-	 * 认证
-	 */
-	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+    @Override
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
 
-		String username=(String)token.getPrincipal();
-		SxUser user = sxUserService.findByName(username);
-		if (null != user) {
-			UserActive userActive=new UserActive();
-			userActive.setUser(user);
-			//获取拥有的角色
-			List<SxRole> roles = sxRoleService.allRolesByBid(user.getId());
-			//角色名集合
-			List<String> roleNames=new ArrayList<>();
-			//权限名集合
-			List<String> permissionName=new ArrayList<>();
-			for (SxRole role:roles){
-				roleNames.add(role.getName());
-				//查询角色拥有的所有权限
-				List<SxPermission> sxPermissions = sxPermissionService.allPermissionsByRid(role.getId());
+    /**
+     * 认证
+     */
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-				for (SxPermission permission :sxPermissions){
-					permissionName.add(permission.getPercode());
-				}
-			}
-			userActive.setRoles(roleNames);
-			userActive.setPermissions(permissionName);
-			//获取盐
-			String salt=user.getSalt();
-			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userActive, user.getPassword(), ByteSource.Util.bytes(salt),
-					this.getName());
-			return info;
-		}
-		return null;
-	}
+        String username = (String) token.getPrincipal();
+        SxUser user = sxUserService.findByName(username);
+        if (null != user) {
+            UserActive userActive = new UserActive();
+            userActive.setUser(user);
+            //获取拥有的角色
+            List<SxRole> roles = sxRoleService.allRolesByBid(user.getId());
+            //角色名集合
+            Set<String> roleNames = new HashSet<>();
+            //权限名集合
+            Set<String> permissionName = new HashSet<>();
+            for (SxRole role : roles) {
+                roleNames.add(role.getName());
+                //查询角色拥有的所有权限
+                List<SxPermission> sxPermissions = sxPermissionService.allPermissionsByRid(role.getId());
 
-	/**
-	 * 授权
-	 */
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		SimpleAuthorizationInfo authorizationInfo=new SimpleAuthorizationInfo();
-		UserActive userActive=(UserActive) principals.getPrimaryPrincipal();
-		List<String> roles=userActive.getRoles();
-		List<String> permissions = userActive.getPermissions();
+                for (SxPermission permission : sxPermissions) {
+                    permissionName.add(permission.getPercode());
+                }
+            }
+            userActive.setRoles(roleNames);
+            userActive.setPermissions(permissionName);
+            //获取盐
+            String salt = user.getSalt();
+            SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userActive, user.getPassword(), ByteSource.Util.bytes(salt),
+                    this.getName());
+            return info;
+        }
+        return null;
+    }
 
-		if(roles.contains("超级管理员")) {
-			authorizationInfo.addStringPermission("*:*");
-		}else {
-			if(null!=permissions&&permissions.size()>0) {
-				authorizationInfo.addStringPermissions(permissions);
-			}
-		}
-		return authorizationInfo;
-	}
+    /**
+     * 授权
+     */
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        UserActive userActive = (UserActive) principals.getPrimaryPrincipal();
+        Set<String> roles = userActive.getRoles();
+        Set<String> permissions = userActive.getPermissions();
+        if (null != roles && roles.size() > 0) {
+            authorizationInfo.setRoles(roles);
+        }
+        if(roles.contains("admin")) {
+            authorizationInfo.addStringPermission("*:*");
+        }else {
+            if (null != permissions && permissions.size() > 0) {
+                authorizationInfo.setRoles(permissions);
+            }
+        }
+
+
+        return authorizationInfo;
+    }
 
 }

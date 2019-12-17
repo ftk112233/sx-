@@ -4,6 +4,8 @@ import com.mt.sx.common.base.CommonResult;
 import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.pojo.SxCategory;
 import com.mt.sx.service.SxCategoryService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ public class SxCategoryController {
      *
      * @return
      */
+    //@RequiresRoles("admin")
+    @RequiresPermissions("product:select")
     @GetMapping("/list")
     public CommonResult<List<SxCategory>> list() {
         return CommonResult.success(sxCategoryService.list());
