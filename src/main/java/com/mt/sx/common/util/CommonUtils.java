@@ -1,7 +1,5 @@
 package com.mt.sx.common.util;
 
-import org.junit.Test;
-
 import java.util.*;
 
 public class CommonUtils {
@@ -18,5 +16,4 @@ public class CommonUtils {
         list.addAll(newList);
     }
 
-    //生成唯一数字id
 }

@@ -12,13 +12,6 @@ public class WebUtils {
 	 * 模拟用户已经登录并把信息存在session
 	 */
 
-	static {
-		SxBusiness business=new SxBusiness();
-		business.setName("张三");
-		business.setPassword("123456");
-		WebUtils.getSession().setAttribute("user",business);
-	}
-	
 	
 	/**
 	 * 得到requset

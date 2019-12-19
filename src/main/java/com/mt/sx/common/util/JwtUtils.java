@@ -7,12 +7,13 @@ import com.mt.sx.pojo.SxUser;
 
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 
 public class JwtUtils {
     public static String createToken(SxUser sxUser) throws UnsupportedEncodingException {
         String token = "";
-        token = JWT.create().withAudience(sxUser.getId().toString()).sign(Algorithm.HMAC256(sxUser.getPassword()));
+        token = JWT.create().withAudience(sxUser.getId().toString(),new Date().toString()).sign(Algorithm.HMAC256(sxUser.getPassword()));
         return token;
     }
     public static Integer deCode(String token){
