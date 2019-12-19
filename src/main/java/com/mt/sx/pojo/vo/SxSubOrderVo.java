@@ -9,6 +9,7 @@ package com.mt.sx.pojo.vo;
 
 @Data
 public class SxSubOrderVo extends SxSubOrder {
+    private String productName;
     private String pic;
     private String description;
     private BigDecimal price;//商品单价

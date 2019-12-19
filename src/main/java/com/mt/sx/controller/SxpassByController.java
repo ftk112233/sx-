@@ -28,8 +28,8 @@ public class SxpassByController {
     }
 
     @PostMapping("/deleted")
-    public CommonResult deleted(Integer passId){
-        return CommonResult.success(sxpassbyService.deleted(passId));
+    public CommonResult deleted(SxPassby sxPassby){
+        return CommonResult.success(sxpassbyService.update(sxPassby));
     }
 
 }

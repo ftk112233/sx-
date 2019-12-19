@@ -7,6 +7,7 @@ import com.mt.sx.pojo.*;
 import com.mt.sx.pojo.vo.SxCartVo;
 import com.mt.sx.pojo.vo.SxSubOrderVo;
 import com.mt.sx.service.SxOrdersService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -121,6 +122,7 @@ public class SxOrdersServiceImpl implements SxOrdersService {
                     sxOrderInfo.setProductId(sxCart.getProductId());
                     sxOrderInfo.setNumber(sxCart.getNumber());
                     sxOrderInfo.setCreateTime(new Date());
+                    sxOrderInfo.setType(0);
                     sxOrderInfoMapper.insert(sxOrderInfo);
                 }
             }
@@ -133,8 +135,6 @@ public class SxOrdersServiceImpl implements SxOrdersService {
     @Override
     public List<SxSubOrderVo> findSubOrders(Integer type) {//根据type状态来查询所有的不同属性订单，如果type为空，查询所有
         SxUser sxUser = getUser();
-        //以上为正式代码，这里用假数据1进行测试
-        //先进行数据的查询与归类，用SxSubOrderVo接收数据
         //一定要创建一个vo对象实体去查询 不然查不了
         Example example = new Example(SxOrder.class);
         example.orderBy("createTime").desc();
@@ -180,6 +180,7 @@ public class SxOrdersServiceImpl implements SxOrdersService {
                     sxSubOrderVo.setAddress(sxAddressInfo.getAddress());
                     sxSubOrderVo.setName(sxAddressInfo.getName());
                     sxSubOrderVo.setTelephone(sxAddressInfo.getTelephone());
+                    sxSubOrderVo.setProductName(sxProduct.getName());
                     listOrder.add(sxSubOrderVo);
                 }
             }
@@ -190,6 +191,64 @@ public class SxOrdersServiceImpl implements SxOrdersService {
     @Override
     public SxOrderInfo findOrdersInfo(Integer id) {
         return sxOrderInfoMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<SxSubOrderVo> adminFindSubOrder(String suborderId) {
+        List<SxSubOrderVo> list = new ArrayList<>();
+        Example example = new Example(SxOrderInfo.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("suborderId", suborderId)
+                .andEqualTo("status", 0)
+                .andEqualTo("deleted", 0);
+        List<SxOrderInfo> sxOrderInfo = sxOrderInfoMapper.selectByExample(example);
+        for (SxOrderInfo sxSubOrderinfo : sxOrderInfo) {
+            SxSubOrderVo sxSubOrderVo = new SxSubOrderVo();
+            BeanUtils.copyProperties(sxSubOrderinfo, sxSubOrderVo);
+            SxProduct sxProduct = sxProductMapper.selectByPrimaryKey(sxSubOrderinfo.getProductId());
+            sxSubOrderVo.setBusinessId(sxProduct.getBusinessId());
+            SxBusiness sxBusiness = sxBusinessMapper.selectByPrimaryKey(sxProduct.getBusinessId());
+            sxSubOrderVo.setBusinessName(sxBusiness.getName());
+            sxSubOrderVo.setPrice(sxProduct.getPrice());
+            sxSubOrderVo.setDescription(sxProduct.getDescription());
+            sxSubOrderVo.setNum(sxSubOrderinfo.getNumber());
+            sxSubOrderVo.setPic(sxProduct.getPic());
+            SxSubOrder sxSubOrder = new SxSubOrder();
+            sxSubOrder.setSuborderId(sxSubOrderinfo.getSuborderId());
+            SxSubOrder sxSubOrder1 = sxSubOrderMapper.selectOne(sxSubOrder);
+            sxSubOrderVo.setPrices(sxSubOrder1.getPrices());
+            SxOrder sxOrder = new SxOrder();
+            sxOrder.setId(sxSubOrderinfo.getOrderId());
+            SxOrder sxOrder1 = sxOrderMapper.selectOne(sxOrder);
+            sxSubOrderVo.setType(sxSubOrder.getType());
+            SxAddressInfo sxAddressInfo = sxAddressInfoMapper.selectByPrimaryKey(sxOrder1.getAddressId());
+            sxSubOrderVo.setName(sxAddressInfo.getName());
+            sxSubOrderVo.setAddress(sxAddressInfo.getAddress());
+            sxSubOrderVo.setTelephone(sxAddressInfo.getTelephone());
+            sxSubOrderVo.setProductName(sxProduct.getName());
+            sxSubOrderVo.setShopId(sxAddressInfo.getShopId());
+            list.add(sxSubOrderVo);
+        }
+        return list;
+    }
+
+    @Override
+    public CommonResult addPassBy(String suborderId, Integer passById) {//suborderId是唯一的
+        SxSubOrder sxSubOrders = new SxSubOrder();
+        sxSubOrders.setSuborderId(suborderId);
+        SxSubOrder sxSubOrder = sxSubOrderMapper.selectOne(sxSubOrders);
+        if (sxSubOrder.getType() != 1) {
+            return CommonResult.fail(-1, "商品未支付成功，无法发货！");
+        } else {
+            Example example = new Example(SxSubOrder.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("suborderId", suborderId);
+            SxSubOrder sxSubOrders1 = new SxSubOrder();
+            sxSubOrders1.setPassbyId(passById);
+            sxSubOrders1.setType(2);
+            return CommonResult.success(sxSubOrderMapper.updateByExampleSelective(sxSubOrders1, example));
+        }
+
     }
 
 }

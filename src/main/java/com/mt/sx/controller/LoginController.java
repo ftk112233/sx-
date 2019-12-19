@@ -12,15 +12,12 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.omg.CORBA.COMM_FAILURE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 
 @RestController
 public class LoginController {
@@ -46,7 +43,7 @@ public class LoginController {
             return CommonResult.success("登录成功",token);
         } catch (AuthenticationException e) {
             e.printStackTrace();
-            //身份认证失败
+            //身份认证失败 
             return CommonResult.fail(ResponseCode.VALIDATE_FALSE);
         }catch (Exception e){
             return CommonResult.fail(ResponseCode.FAILED);

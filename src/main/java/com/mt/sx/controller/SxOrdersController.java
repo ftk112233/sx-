@@ -3,6 +3,7 @@ package com.mt.sx.controller;
 import com.mt.sx.common.base.CommonResult;
 import com.mt.sx.pojo.SxOrder;
 import com.mt.sx.service.SxOrdersService;
+import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,13 +30,25 @@ public class SxOrdersController {
     }
 
 
-    @GetMapping("findSubOrders")//当传入类型时按类型查询。未传入类型时默认查询所有的数据
+    @GetMapping("findSubOrders")//查看子订单，当传入类型时按类型查询。未传入类型时默认查询所有的数据
     public CommonResult findSubOrders(Integer type) {
         return CommonResult.success(sxOrdersService.findSubOrders(type));
     }
 
-    @GetMapping("findOrdersInfo")//当传入类型时按类型查询。未传入类型时默认查询所有的数据
-    public CommonResult findOrdersInfo(Integer id) {
+    @GetMapping("findOrdersInfo")//查看订单详情，当传入类型时按类型查询。未传入类型时默认查询所有的数据
+    public CommonResult findOrdersInfo(@RequestParam("id") Integer id) {
         return CommonResult.success(sxOrdersService.findOrdersInfo(id));
     }
+
+    @GetMapping("adminFindSubOrder")
+    public CommonResult adminFindSubOrder(String suborderId){
+        return CommonResult.success(sxOrdersService.adminFindSubOrder(suborderId));
+    }
+
+    @PostMapping("addPassBy")
+    public CommonResult adminFindSubOrder(String suborderId,Integer passById){
+        return CommonResult.success(sxOrdersService.addPassBy(suborderId,passById));
+    }
+
+
 }

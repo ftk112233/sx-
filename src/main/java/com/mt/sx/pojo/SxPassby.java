@@ -1,15 +1,15 @@
 package com.mt.sx.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sx_passby")
-public class SxPassby  implements Serializable {
+public class SxPassby {
     /**
      * 配送人员自增id
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -51,6 +51,16 @@ public class SxPassby  implements Serializable {
      */
     @Column(name = "business_id")
     private Integer businessId;
+
+    /**
+     * 0正常 1禁止
+     */
+    private Integer status;
+
+    /**
+     * 0正常 1删除
+     */
+    private Integer deleted;
 
     /**
      * 获取配送人员自增id
@@ -194,5 +204,41 @@ public class SxPassby  implements Serializable {
      */
     public void setBusinessId(Integer businessId) {
         this.businessId = businessId;
+    }
+
+    /**
+     * 获取0正常 1禁止
+     *
+     * @return status - 0正常 1禁止
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置0正常 1禁止
+     *
+     * @param status 0正常 1禁止
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    /**
+     * 获取0正常 1删除
+     *
+     * @return deleted - 0正常 1删除
+     */
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    /**
+     * 设置0正常 1删除
+     *
+     * @param deleted 0正常 1删除
+     */
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

@@ -11,5 +11,4 @@ public interface SxpassbyService {
 
     Integer update(SxPassby sxPassby);
 
-    Integer deleted(Integer passId);
 }

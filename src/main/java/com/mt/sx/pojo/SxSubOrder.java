@@ -1,13 +1,11 @@
 package com.mt.sx.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "sx_sub_order")
-public class SxSubOrder  implements Serializable {
+public class SxSubOrder {
     /**
      * 子订单id
      */
@@ -54,12 +52,23 @@ public class SxSubOrder  implements Serializable {
      */
     @Column(name = "update_by")
     private String updateBy;
+
+    /**
+     * 买家id
+     */
     @Column(name = "shop_id")
     private Integer shopId;
 
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
-    }
+    /**
+     * 派送员id
+     */
+    @Column(name = "passby_id")
+    private Integer passbyId;
+
+    /**
+     * 0 未支付 1 已支付 2 已发货 3 已签收
+     */
+    private Integer type;
 
     /**
      * 获取子订单id
@@ -205,4 +214,57 @@ public class SxSubOrder  implements Serializable {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
+    /**
+     * 获取买家id
+     *
+     * @return shop_id - 买家id
+     */
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    /**
+     * 设置买家id
+     *
+     * @param shopId 买家id
+     */
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
+    /**
+     * 获取派送员id
+     *
+     * @return passby_id - 派送员id
+     */
+    public Integer getPassbyId() {
+        return passbyId;
+    }
+
+    /**
+     * 设置派送员id
+     *
+     * @param passbyId 派送员id
+     */
+    public void setPassbyId(Integer passbyId) {
+        this.passbyId = passbyId;
+    }
+
+    /**
+     * 获取0 未支付 1 已支付 2 已发货 3 已签收
+     *
+     * @return type - 0 未支付 1 已支付 2 已发货 3 已签收
+     */
+    public Integer getType() {
+        return type;
+    }
+
+    /**
+     * 设置0 未支付 1 已支付 2 已发货 3 已签收
+     *
+     * @param type 0 未支付 1 已支付 2 已发货 3 已签收
+     */
+    public void setType(Integer type) {
+        this.type = type;
+    }
 }

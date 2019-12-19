@@ -2,7 +2,9 @@ package com.mt.sx.service;
 
 
 import com.mt.sx.common.base.CommonResult;
+import com.mt.sx.pojo.SxOrder;
 import com.mt.sx.pojo.SxOrderInfo;
+import com.mt.sx.pojo.SxSubOrder;
 import com.mt.sx.pojo.vo.SxSubOrderVo;
 
 import java.util.Date;
@@ -20,4 +22,8 @@ public interface SxOrdersService {
     List<SxSubOrderVo> findSubOrders(Integer type);
 
     SxOrderInfo findOrdersInfo(Integer id);
+
+    List<SxSubOrderVo> adminFindSubOrder(String suborderId);
+
+    CommonResult addPassBy(String suborderId, Integer passById);
 }

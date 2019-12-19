@@ -20,7 +20,9 @@ public class SxpassbyServiceImpl implements SxpassbyService {
         if (businessid != null) {
             Example example = new Example(SxPassby.class);
             Example.Criteria criteria = example.createCriteria();
-            criteria.andEqualTo("businessId", businessid);
+            criteria.andEqualTo("businessId", businessid)
+                    .andEqualTo("status", 0)
+                    .andEqualTo("deleted", 0);
             return sxPassbyMapper.selectByExample(example);
         } else {
             return sxPassbyMapper.selectAll();
@@ -38,11 +40,6 @@ public class SxpassbyServiceImpl implements SxpassbyService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("id", sxPassby.getId());
         return sxPassbyMapper.updateByExampleSelective(sxPassby, example);
-    }
-
-    @Override
-    public Integer deleted(Integer passId) {
-        return sxPassbyMapper.deleteByPrimaryKey(passId);
     }
 
 }
