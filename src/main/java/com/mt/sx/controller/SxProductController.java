@@ -22,8 +22,11 @@ public class SxProductController {
      * @return
      */
     @GetMapping("/list")
-    public CommonResult list(SxProductVO sxProductVO) {
-        return CommonResult.success(sxProductService.list(sxProductVO));
+    public CommonResult list(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
+                             @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
+                             @RequestParam(value = "name",required = false,defaultValue = "")String name,
+                             @RequestParam(value = "description",required = false,defaultValue = "")String description) {
+        return CommonResult.success(sxProductService.list(page,pageSize,name,description));
     }
 
     /**

@@ -9,9 +9,9 @@ public interface SxCommentService {
     CommonPage list(Integer page, Integer pageSize);
 
 
-    Integer insert(SxComment sxComment);
+    void insert(SxComment sxComment);
 
-    Integer delete(Integer id);
+    void delete(Integer id);
 
     List<SxComment> findByProductId(Integer productId);
 

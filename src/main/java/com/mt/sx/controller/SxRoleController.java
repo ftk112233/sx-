@@ -1,5 +1,6 @@
 package com.mt.sx.controller;
 
+import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.common.base.CommonResult;
 import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.mapper.SxRoleMapper;
@@ -22,8 +23,10 @@ public class SxRoleController {
      * @return
      */
     @GetMapping("/list")
-    public CommonResult<List<SxRole>> list(SxRoleVo sxRoleVo){
-        return CommonResult.success(sxRoleService.list(sxRoleVo));
+    public CommonResult<CommonPage<SxRole>> list(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
+                                                 @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
+                                                 @RequestParam(value = "name",required = false,defaultValue = "")String name){
+        return CommonResult.success(sxRoleService.list(page,pageSize,name));
     }
 
     /**

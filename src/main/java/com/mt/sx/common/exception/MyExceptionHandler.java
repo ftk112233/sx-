@@ -27,4 +27,10 @@ public class MyExceptionHandler {
         e.printStackTrace();
        return CommonResult.fail(403,"你无权访问");
     }
+
+    @ExceptionHandler(value = GlobalException.class)//指定拦截的异常
+    public CommonResult GrobleHandler(GlobalException e) throws Exception {
+
+        return CommonResult.fail(e.getCode(),e.getMessage());
+    }
 }

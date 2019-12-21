@@ -1,12 +1,12 @@
 package com.mt.sx.service;
 
+import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.pojo.SxRole;
-import com.mt.sx.pojo.vo.SxRoleVo;
 
 import java.util.List;
 
 public interface SxRoleService {
-    List<SxRole> list(SxRoleVo sxRoleVo);
+    CommonPage<SxRole> list(Integer page, Integer pageSize, String name);
 
     void insert(SxRole sxRole);
 

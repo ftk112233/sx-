@@ -33,10 +33,15 @@ public class SxCommentController {
      */
     @PostMapping("/insert")
     public CommonResult insert(SxComment sxComment){
-        if(sxCommentService.insert(sxComment)==1){
+        try {
+            sxCommentService.insert(sxComment) ;
             return CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.INSERT_FALSE);
         }
-        return CommonResult.fail(ResponseCode.INSERT_FALSE);
+
+
     }
 
     /**
@@ -46,10 +51,15 @@ public class SxCommentController {
      */
     @PostMapping("/delete")
     public CommonResult delete(SxComment sxComment){
-        if(sxCommentService.insert(sxComment)==1){
-           return CommonResult.success();
+        try {
+            sxCommentService.insert(sxComment);
+            return CommonResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.DELETE_FALSE);
         }
-        return CommonResult.fail(ResponseCode.DELETE_FALSE);
+
+
     }
 
     @GetMapping("/findByProductId")

@@ -13,7 +13,8 @@ public enum ResponseCode implements IResponseCode {
     DELETE_FALSE(-1,"删除失败"),
     SELECT_FALSE(-1,"查询失败"),
     VALIDATE_FALSE(-1,"用户名或密码错误"),
-    LOGOUT(200,"退出成功");
+    LOGOUT(200,"退出成功"),
+    NOUNAUTH(403, "没有相关权限");
     private  Integer code;
     private String msg;
 

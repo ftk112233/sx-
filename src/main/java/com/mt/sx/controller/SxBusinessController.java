@@ -17,12 +17,14 @@ public class SxBusinessController {
 
     /**
      * 查询所有商户
-     * @param sxBusiness
+     * @param
      * @return
      */
     @GetMapping("/list")
-    public CommonResult<List<SxBusiness>> list(SxBusiness sxBusiness){
-       return CommonResult.success( sxBusinessService.list(sxBusiness));
+    public CommonResult list(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
+                             @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
+                             @RequestParam(value = "name",required = false,defaultValue = "")String name){
+       return CommonResult.success( sxBusinessService.list(page,pageSize,name));
     }
 
     /**
