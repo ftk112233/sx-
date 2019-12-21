@@ -12,9 +12,6 @@ import java.util.List;
 
 public interface SxOrdersService {
 
-
-
-
     List findForCart(List<Integer> list) ;
 
     CommonResult insertOrder(List<Integer> list, Integer addressId, String message, Date hopeTime);
@@ -23,7 +20,16 @@ public interface SxOrdersService {
 
     SxOrderInfo findOrdersInfo(Integer id);
 
-    List<SxSubOrderVo> adminFindSubOrder(String suborderId);
+//    List<SxSubOrderVo> adminFindSubOrder(String suborderId);
 
     CommonResult addPassBy(String suborderId, Integer passById);
+
+    CommonResult cancelOrder(String suborderId);
+
+    CommonResult cancelOrderForTable(String suborderId);
+
+    List<SxSubOrderVo> findSubOrdersForTable(Integer type);
+
+    CommonResult totalConsume();
+
 }

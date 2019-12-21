@@ -52,6 +52,17 @@ public class SxUser implements Serializable {
     private Integer openId;
 
     /**
+     * 微信的昵称
+     */
+    @Column(name = "nice_name")
+    private String niceName;
+
+    /**
+     * 微信的头像链接
+     */
+    private String pic;
+
+    /**
      * 获取自增id
      *
      * @return id - 自增id
@@ -193,5 +204,41 @@ public class SxUser implements Serializable {
      */
     public void setOpenId(Integer openId) {
         this.openId = openId;
+    }
+
+    /**
+     * 获取微信的昵称
+     *
+     * @return nice_name - 微信的昵称
+     */
+    public String getNiceName() {
+        return niceName;
+    }
+
+    /**
+     * 设置微信的昵称
+     *
+     * @param niceName 微信的昵称
+     */
+    public void setNiceName(String niceName) {
+        this.niceName = niceName == null ? null : niceName.trim();
+    }
+
+    /**
+     * 获取微信的头像链接
+     *
+     * @return pic - 微信的头像链接
+     */
+    public String getPic() {
+        return pic;
+    }
+
+    /**
+     * 设置微信的头像链接
+     *
+     * @param pic 微信的头像链接
+     */
+    public void setPic(String pic) {
+        this.pic = pic == null ? null : pic.trim();
     }
 }

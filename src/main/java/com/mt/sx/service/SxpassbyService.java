@@ -5,7 +5,7 @@ import com.mt.sx.pojo.SxPassby;
 import java.util.List;
 
 public interface SxpassbyService {
-    List<SxPassby> findByBusId(Integer businessid);
+    List<SxPassby> findByBusId();
 
     Integer insert(SxPassby sxPassby);
 
