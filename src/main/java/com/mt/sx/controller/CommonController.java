@@ -134,7 +134,7 @@ public class CommonController extends BaseController {
         // 获取文件
         File file = new File(FILEPATH + fileAttachment);
         if(FileUtil.isEmpty(file)) {
-            throw new GlobalException("文件不存在", -1);
+            throw new GlobalException( -1,"文件不存在");
         }
         try {
             response.setCharacterEncoding("utf-8");

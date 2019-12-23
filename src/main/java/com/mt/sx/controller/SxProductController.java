@@ -19,66 +19,67 @@ public class SxProductController {
 
     /**
      * 后台按条件分页查询商品
+     *
      * @return
      */
     @GetMapping("/list")
-    public CommonResult list(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
-                             @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
-                             @RequestParam(value = "name",required = false,defaultValue = "")String name,
-                             @RequestParam(value = "description",required = false,defaultValue = "")String description) {
-        return CommonResult.success(sxProductService.list(page,pageSize,name,description));
+    public CommonResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                             @RequestParam(value = "name", required = false, defaultValue = "") String name,
+                             @RequestParam(value = "description", required = false, defaultValue = "") String description) {
+        return CommonResult.success(sxProductService.list(page, pageSize, name, description));
     }
 
     /**
      * 后台添加商品
+     *
      * @param sxProduct
      * @return
      */
     @PostMapping("/insert")
-    public CommonResult insert(SxProduct sxProduct){
-        if(sxProductService.insert(sxProduct)==1) {
-            return CommonResult.success();
-        }
-        return CommonResult.fail(ResponseCode.INSERT_FALSE);
+    public CommonResult insert(SxProduct sxProduct) {
+        sxProductService.insert(sxProduct);
+        return CommonResult.success();
     }
 
     /**
      * 后台更新商品
+     *
      * @param sxProduct
      * @return
      */
     @PostMapping("/update")
-    public CommonResult update(SxProduct sxProduct){
-        if(sxProductService.update(sxProduct)==1) {
-            return CommonResult.success();
-        }
+    public CommonResult update(SxProduct sxProduct) {
+        sxProductService.update(sxProduct);
         return CommonResult.fail(ResponseCode.UPDATE_FALSE);
     }
 
     /**
      * 后台删除商品
+     *
      * @param id
      * @return
      */
     @PostMapping("/delete")
-    public CommonResult delete(@RequestParam("id") Integer id){
-        if(sxProductService.delete(id)==1) {
-            return CommonResult.success();
-        }
-        return CommonResult.fail(ResponseCode.DELETE_FALSE);
+    public CommonResult delete(@RequestParam("id") Integer id) {
+        sxProductService.delete(id);
+        return CommonResult.success();
+
     }
 
     /**
      * 前台查询热销商品
+     *
      * @return
      */
     @GetMapping("/findSellWell")
-    public CommonResult<CommonPage> findSellWell(){
+    public CommonResult<CommonPage> findSellWell() {
         return CommonResult.success(sxProductService.findSellWell());
     }
 
     /**
      * 前台根据小分类id查询所有商品
+     *
      * @param spuId
      * @param page
      * @param pageSize
@@ -86,33 +87,34 @@ public class SxProductController {
      */
     @GetMapping("/findBySpuId")
     public CommonResult<CommonPage> findBySpuId(@RequestParam("id") Integer spuId,
-                                                @RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
-                                                @RequestParam(value = "pageSize",required = false,defaultValue = "20") Integer pageSize){
-        return CommonResult.success(sxProductService.findBySpuId(spuId,page,pageSize));
+                                                @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                                @RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
+        return CommonResult.success(sxProductService.findBySpuId(spuId, page, pageSize));
     }
 
     /**
-     *
      * 此接口用于前台搜索
-     * @param name 商品名
+     *
+     * @param name     商品名
      * @param page
      * @param pageSize
      * @return
      */
     @GetMapping("/search")
     public CommonResult<CommonPage> search(@RequestParam("name") String name,
-                                           @RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
-                                           @RequestParam(value = "pageSize",required = false,defaultValue = "20") Integer pageSize){
-        return CommonResult.success(sxProductService.search(name,page,pageSize));
+                                           @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                           @RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
+        return CommonResult.success(sxProductService.search(name, page, pageSize));
     }
 
     /**
      * 根据id查询商品
+     *
      * @param id
      * @return
      */
     @GetMapping("/findById")
-    public CommonResult<SxProduct> findById(@RequestParam("id") Integer id){
+    public CommonResult<SxProduct> findById(@RequestParam("id") Integer id) {
         return CommonResult.success(sxProductService.findById(id));
     }
 
@@ -120,7 +122,7 @@ public class SxProductController {
      * 批量删除
      */
     @PostMapping("/batchDelete")
-    public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids){
+    public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids) {
         try {
             sxProductService.batchDelete(ids);
             return CommonResult.success();

@@ -95,41 +95,6 @@ public class SxBusiness implements Serializable {
         this.name = name == null ? null : name.trim();
     }
 
-    /**
-     * 获取商户密码
-     *
-     * @return password - 商户密码
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * 设置商户密码
-     *
-     * @param password 商户密码
-     */
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    /**
-     * 获取盐
-     *
-     * @return salt - 盐
-     */
-    public String getSalt() {
-        return salt;
-    }
-
-    /**
-     * 设置盐
-     *
-     * @param salt 盐
-     */
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
-    }
 
     /**
      * 获取店铺logo

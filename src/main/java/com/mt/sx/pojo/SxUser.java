@@ -18,6 +18,15 @@ public class SxUser implements Serializable {
      */
     private String username;
 
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 盐
+     */
+    private String salt;
 
     /**
      * 类型 0:超级管理员 1:商家  2:买家
@@ -89,6 +98,41 @@ public class SxUser implements Serializable {
         this.username = username == null ? null : username.trim();
     }
 
+    /**
+     * 获取密码
+     *
+     * @return password - 密码
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * 设置密码
+     *
+     * @param password 密码
+     */
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 获取盐
+     *
+     * @return salt - 盐
+     */
+    public String getSalt() {
+        return salt;
+    }
+
+    /**
+     * 设置盐
+     *
+     * @param salt 盐
+     */
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
 
     /**
      * 获取类型 0:超级管理员 1:商家  2:买家

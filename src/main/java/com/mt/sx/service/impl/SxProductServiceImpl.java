@@ -67,9 +67,10 @@ public class SxProductServiceImpl implements SxProductService {
      * @return
      */
     @Override
-    public Integer insert(SxProduct sxProduct) {
+    public void insert(SxProduct sxProduct) {
         //从session中获取用户
         SxUser user = UserUtils.getUser();
+        //判断是否为管理员
         if(user.getType()==0){
             throw new GlobalException(ResponseCode.NOUNAUTH);
         }
@@ -84,7 +85,7 @@ public class SxProductServiceImpl implements SxProductService {
         sxProduct.setSort(0);
         sxProduct.setStatus(1);
         sxProduct.setCount(0);
-        return sxProductMapper.insertSelective(sxProduct);
+        sxProductMapper.insertSelective(sxProduct);
     }
 
     /**
@@ -94,9 +95,9 @@ public class SxProductServiceImpl implements SxProductService {
      * @return
      */
     @Override
-    public Integer update(SxProduct sxProduct) {
+    public void update(SxProduct sxProduct) {
         sxProduct.setUpdateTime(new Date());
-        return sxProductMapper.updateByPrimaryKeySelective(sxProduct);
+        sxProductMapper.updateByPrimaryKeySelective(sxProduct);
     }
 
     /**
@@ -106,8 +107,8 @@ public class SxProductServiceImpl implements SxProductService {
      * @return
      */
     @Override
-    public Integer delete(Integer id) {
-        return sxProductMapper.deleteByPrimaryKey(id);
+    public void delete(Integer id) {
+        sxProductMapper.deleteByPrimaryKey(id);
     }
 
     /**
