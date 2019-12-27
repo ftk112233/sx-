@@ -6,16 +6,23 @@ import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.pojo.SxUser;
 import com.mt.sx.pojo.vo.SxUserVo;
 import com.mt.sx.service.SxUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< Updated upstream
 
 import java.util.List;
 
+=======
+@Api(tags = "用户操作接口")
+>>>>>>> Stashed changes
 @RestController
 @RequestMapping("/user")
 public class SxUserController {
     @Autowired
     SxUserService sxUserService;
+<<<<<<< Updated upstream
 
     @GetMapping("/list")
     public CommonResult list(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
@@ -32,6 +39,9 @@ public class SxUserController {
 
     }
 
+=======
+@ApiOperation("新增用户")
+>>>>>>> Stashed changes
     @PostMapping("/insert")
     public CommonResult insertUser(SxUser sxUser){
         try {
