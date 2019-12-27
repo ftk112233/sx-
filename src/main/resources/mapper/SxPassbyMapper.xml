@@ -12,5 +12,8 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
   </resultMap>
 </mapper>

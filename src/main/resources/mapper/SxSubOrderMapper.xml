@@ -13,5 +13,8 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="passby_id" jdbcType="INTEGER" property="passbyId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
 </mapper>
