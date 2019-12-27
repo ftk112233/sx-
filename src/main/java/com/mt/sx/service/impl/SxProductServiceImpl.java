@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -175,5 +176,23 @@ public class SxProductServiceImpl implements SxProductService {
     @Override
     public void batchDelete(List<Integer> ids) {
         sxProductMapper.deleteByIdList(ids);
+    }
+
+    /**
+     * 查询库存紧张的商品
+     * @return
+     */
+    @Override
+    public CommonPage findDangerNum(Integer page,Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        List<SxProduct> sxProductList = sxProductMapper.selectAll();
+        List<SxProduct> sxProducts=new ArrayList<>();
+        for(SxProduct sxProduct:sxProductList){
+            if(sxProduct.getNumber()<=sxProduct.getDangernum()){
+                sxProducts.add(sxProduct);
+            }
+        }
+        return CommonPage.restPage(sxProducts);
+
     }
 }

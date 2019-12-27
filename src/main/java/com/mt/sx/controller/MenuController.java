@@ -4,11 +4,20 @@ import com.mt.sx.common.base.CommonResult;
 import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.pojo.SxPermission;
 import com.mt.sx.service.SxPermissionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< Updated upstream
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+=======
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+@Api(tags = "菜单栏管理")
+>>>>>>> Stashed changes
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
@@ -17,6 +26,7 @@ public class MenuController {
     /**
      * 加载后台管理左边的菜单
      */
+    @ApiOperation("加载左侧的管理菜单栏")
     @GetMapping("/loadLeftMenu")
     public CommonResult loadLeftMenu(){
 
@@ -30,7 +40,7 @@ public class MenuController {
 
 
     /**
-     * 查询所有权限
+     * 查询所有菜单
      */
     @GetMapping("/listMenu")
     public CommonResult listMenu(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
@@ -46,7 +56,7 @@ public class MenuController {
 
 
     /**
-     * 增加权限
+     * 增加菜单
      */
     @PostMapping("/insertMenu")
     public  CommonResult insertMenu(SxPermission sxPermission){
@@ -60,7 +70,7 @@ public class MenuController {
     }
 
     /**
-     * 修改权限
+     * 修改菜单
      */
     @PostMapping("/updateMenu")
     public CommonResult updateMenu(SxPermission sxPermission){
@@ -75,7 +85,7 @@ public class MenuController {
     }
 
     /**
-     * 删除权限
+     * 删除菜单
      */
     @PostMapping("/deleteMenu")
     public CommonResult deleteMenu(Integer id){

@@ -87,15 +87,16 @@ public class ShiroAutoConfiguration {
 
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/user/insert", "anon");
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
 
         // 设置登出的路径
 
         filterChainDefinitionMap.put("/logout", "logout");
 
         // 设置拦截的路径
-
-        filterChainDefinitionMap.put("/**", "jwt");
-
 
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return factoryBean;

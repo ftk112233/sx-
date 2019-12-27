@@ -6,11 +6,14 @@ import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.pojo.SxProduct;
 import com.mt.sx.pojo.vo.SxProductVO;
 import com.mt.sx.service.SxProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "商品操作接口")
 @RestController
 @RequestMapping("/product")
 public class SxProductController {
@@ -22,6 +25,7 @@ public class SxProductController {
      *
      * @return
      */
+    @ApiOperation("商品列表查询")
     @GetMapping("/list")
     public CommonResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
@@ -36,10 +40,18 @@ public class SxProductController {
      * @param sxProduct
      * @return
      */
+    @ApiOperation("插入商品信息")
     @PostMapping("/insert")
     public CommonResult insert(SxProduct sxProduct) {
+<<<<<<< Updated upstream
         sxProductService.insert(sxProduct);
         return CommonResult.success();
+=======
+        if (sxProductService.insert(sxProduct) == 1) {
+            return CommonResult.success();
+        }
+        return CommonResult.fail(ResponseCode.INSERT_FALSE);
+>>>>>>> Stashed changes
     }
 
     /**
@@ -48,9 +60,16 @@ public class SxProductController {
      * @param sxProduct
      * @return
      */
+    @ApiOperation(value = "更新商品接口")
     @PostMapping("/update")
     public CommonResult update(SxProduct sxProduct) {
+<<<<<<< Updated upstream
         sxProductService.update(sxProduct);
+=======
+        if (sxProductService.update(sxProduct) == 1) {
+            return CommonResult.success();
+        }
+>>>>>>> Stashed changes
         return CommonResult.fail(ResponseCode.UPDATE_FALSE);
     }
 
@@ -60,11 +79,19 @@ public class SxProductController {
      * @param id
      * @return
      */
+    @ApiOperation(value = "删除商品信息", notes = "传入商品的id")
     @PostMapping("/delete")
     public CommonResult delete(@RequestParam("id") Integer id) {
+<<<<<<< Updated upstream
         sxProductService.delete(id);
         return CommonResult.success();
 
+=======
+        if (sxProductService.delete(id) == 1) {
+            return CommonResult.success();
+        }
+        return CommonResult.fail(ResponseCode.DELETE_FALSE);
+>>>>>>> Stashed changes
     }
 
     /**
@@ -72,6 +99,7 @@ public class SxProductController {
      *
      * @return
      */
+    @ApiOperation("查询热销商品")
     @GetMapping("/findSellWell")
     public CommonResult<CommonPage> findSellWell() {
         return CommonResult.success(sxProductService.findSellWell());
@@ -85,6 +113,7 @@ public class SxProductController {
      * @param pageSize
      * @return
      */
+    @ApiOperation("根据小分类id查询所有商品")
     @GetMapping("/findBySpuId")
     public CommonResult<CommonPage> findBySpuId(@RequestParam("id") Integer spuId,
                                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
@@ -100,6 +129,7 @@ public class SxProductController {
      * @param pageSize
      * @return
      */
+    @ApiOperation("前台搜索商品名")
     @GetMapping("/search")
     public CommonResult<CommonPage> search(@RequestParam("name") String name,
                                            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
@@ -113,6 +143,7 @@ public class SxProductController {
      * @param id
      * @return
      */
+    @ApiOperation("根据商品id查询商品")
     @GetMapping("/findById")
     public CommonResult<SxProduct> findById(@RequestParam("id") Integer id) {
         return CommonResult.success(sxProductService.findById(id));
@@ -121,6 +152,7 @@ public class SxProductController {
     /**
      * 批量删除
      */
+    @ApiOperation(value = "批量删除商品", notes = "传入List<Integer> ids")
     @PostMapping("/batchDelete")
     public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids) {
         try {
@@ -130,6 +162,16 @@ public class SxProductController {
             e.printStackTrace();
             return CommonResult.fail(ResponseCode.DELETE_FALSE);
         }
+
+    }
+
+    /**
+     * 查询库存紧张的商品
+     */
+    @GetMapping("/findDangerNum")
+    public CommonResult findDangerNum( @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
+       return CommonResult.success( sxProductService.findDangerNum(page,pageSize));
 
     }
 }
