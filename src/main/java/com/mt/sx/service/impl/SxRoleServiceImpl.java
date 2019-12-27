@@ -1,8 +1,5 @@
 package com.mt.sx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.mapper.SxRoleMapper;
 import com.mt.sx.mapper.SxRolePermissionMapper;
 import com.mt.sx.mapper.SxUserRoleMapper;
@@ -11,10 +8,8 @@ import com.mt.sx.pojo.SxRolePermission;
 import com.mt.sx.pojo.SxUserRole;
 import com.mt.sx.pojo.vo.SxRoleVo;
 import com.mt.sx.service.SxRoleService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,16 +29,8 @@ public class SxRoleServiceImpl implements SxRoleService {
      * @return
      */
     @Override
-    public CommonPage<SxRole> list(Integer page, Integer pageSize, String name) {
-        PageHelper.startPage(page,pageSize);
-        Example example=new Example(SxRole.class);
-        if(StringUtils.isNotBlank(name)){
-            example.createCriteria().andLike("name","%"+name+"%");
-        }
-        List<SxRole> sxRoles = sxRoleMapper.selectByExample(example);
-
-
-        return CommonPage.restPage(sxRoles);
+    public List<SxRole> list(SxRoleVo sxRoleVo) {
+        return sxRoleMapper.selectAll();
     }
 
     /**

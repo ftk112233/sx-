@@ -1,7 +1,5 @@
 package com.mt.sx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.common.util.UserUtils;
 import com.mt.sx.mapper.SxPermissionMapper;
 import com.mt.sx.mapper.SxRolePermissionMapper;
@@ -11,12 +9,14 @@ import com.mt.sx.pojo.SxRolePermission;
 import com.mt.sx.pojo.SxUser;
 import com.mt.sx.pojo.SxUserRole;
 import com.mt.sx.service.SxPermissionService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
-import java.util.*;
+import java.security.Permission;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class SxPermissionServiceImpl implements SxPermissionService {
@@ -67,11 +67,10 @@ public class SxPermissionServiceImpl implements SxPermissionService {
     @Override
     public List<SxPermission> loadLeftMenu() {
         SxUser user = UserUtils.getUser();
-        List<SxPermission> list=new ArrayList<>();
-        SxPermission permission=new SxPermission();
-        permission.setType("menu");
-        permission.setStatus(1);
+        List<SxPermission> list=null;
         if (user.getType()==0){//如果是管理员则加载全部
+            SxPermission permission=new SxPermission();
+            permission.setType("menu");
             list=sxPermissionMapper.select(permission);
         }else{
              //先查询角色拥有的角色，再根据角色查询拥有的菜单
@@ -88,182 +87,8 @@ public class SxPermissionServiceImpl implements SxPermissionService {
                 }
             }
             List<Integer> ids = new ArrayList<>(permissionIds);
-            for (Integer id:ids){
-                permission.setId(id);
-                SxPermission one = sxPermissionMapper.selectOne(permission);
-                if(one!=null){
-                    list.add(one);
-                }
-            }
+            list=sxPermissionMapper.selectByIdList(ids);
         }
         return list;
-    }
-
-    /**
-     * 分页查询所有权限
-     * @param page
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public CommonPage listPermission(Integer page, Integer pageSize,String percode) {
-        PageHelper.startPage(page,pageSize);
-        Example example=new Example(SxPermission.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("type","permission");
-        if(StringUtils.isNotBlank(percode)){
-            criteria.andLike("percode","%"+percode+"%");
-        }
-        example.orderBy("sort");
-        List<SxPermission> permissionList = sxPermissionMapper.selectByExample(example);
-
-        return CommonPage.restPage(permissionList);
-    }
-
-    /**
-     * 增加权限
-     * @param sxPermission
-     */
-    @Override
-    public void insertPermission(SxPermission sxPermission) {
-        sxPermission.setType("permission");
-        sxPermission.setCreateTime(new Date());
-        sxPermissionMapper.insertSelective(sxPermission);
-    }
-
-    /**
-     * 修改权限
-     * @param sxPermission
-     */
-    @Override
-    public void updatePermission(SxPermission sxPermission) {
-        sxPermissionMapper.updateByPrimaryKeySelective(sxPermission);
-    }
-
-    /**
-     * 删除商品权限
-     * @param id
-     */
-    @Override
-    public void deletePermission(Integer id) {
-        //先删除角色和权限的中间表
-        SxRolePermission sxRolePermission=new SxRolePermission();
-        sxRolePermission.setPid(id);
-        sxRolePermissionMapper.delete(sxRolePermission);
-        //再删除权限表
-        sxPermissionMapper.deleteByPrimaryKey(id);
-    }
-
-    /**
-     * 批量删除权限
-     * @param ids
-     */
-    @Override
-    public void batchDeletePermisson(List<Integer> ids) {
-        //先删除角色和权限的中间表
-        for(Integer id:ids){
-            SxRolePermission sxRolePermission=new SxRolePermission();
-            sxRolePermission.setPid(id);
-            sxRolePermissionMapper.delete(sxRolePermission);
-        }
-        //再删除权限表
-        sxPermissionMapper.deleteByIdList(ids);
-    }
-
-    /**
-     * 分页查询所有菜单
-     * @param page
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public CommonPage listMenu(Integer page, Integer pageSize,String title) {
-        PageHelper.startPage(page,pageSize);
-        Example example=new Example(SxPermission.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("type","menu");
-        if(StringUtils.isNotBlank(title)){
-            criteria.andLike("title","%"+title+"%");
-        }
-        example.orderBy("sort");
-        List<SxPermission> permissionList = sxPermissionMapper.selectByExample(example);
-
-        return CommonPage.restPage(permissionList);
-    }
-
-    /**
-     * 增加权限菜单
-     * @param sxPermission
-     */
-    @Override
-    public void insertMenu(SxPermission sxPermission) {
-        sxPermission.setType("menu");
-        sxPermission.setCreateTime(new Date());
-        sxPermissionMapper.insertSelective(sxPermission);
-    }
-
-    /**
-     * 修改权限菜单
-     * @param sxPermission
-     */
-    @Override
-    public void updateMenu(SxPermission sxPermission) {
-        sxPermissionMapper.updateByPrimaryKeySelective(sxPermission);
-    }
-
-    /**
-     * 删除商品菜单
-     * @param id
-     */
-    @Override
-    public void deleteMenu(Integer id) {
-        //先删除角色和权限的中间表
-        SxRolePermission sxRolePermission=new SxRolePermission();
-        sxRolePermission.setPid(id);
-        sxRolePermissionMapper.delete(sxRolePermission);
-        //再删除菜单信息
-        sxPermissionMapper.deleteByPrimaryKey(id);
-    }
-
-    /**
-     * 批量删除菜单
-     * @param ids
-     */
-    @Override
-    public void batchDeleteMenu(List<Integer> ids) {
-        //先删除角色和权限的中间表
-        for(Integer id:ids){
-            SxRolePermission sxRolePermission=new SxRolePermission();
-            sxRolePermission.setPid(id);
-            sxRolePermissionMapper.delete(sxRolePermission);
-        }
-        //再删除菜单信息
-        sxPermissionMapper.deleteByIdList(ids);
-    }
-
-    /**
-     * 根据菜单id查询权限
-     * @param d
-     * @return
-     */
-    @Override
-    public List<SxPermission> findPermissionByPid(Integer id) {
-        SxPermission sxPermission=new SxPermission();
-        sxPermission.setId(id);
-        sxPermission.setType("permission");
-        return sxPermissionMapper.select(sxPermission);
-    }
-
-    /**
-     * 根据菜单id查询子菜单
-     * @param id
-     * @return
-     */
-    @Override
-    public List<SxPermission> findMenuByPid(Integer id) {
-        SxPermission sxPermission=new SxPermission();
-        sxPermission.setPid(id);;
-        sxPermission.setType("menu");
-        return sxPermissionMapper.select(sxPermission);
     }
 }

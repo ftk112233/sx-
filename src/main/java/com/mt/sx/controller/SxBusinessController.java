@@ -20,25 +20,14 @@ public class SxBusinessController {
 
     /**
      * 查询所有商户
-<<<<<<< Updated upstream
-     * @param
-=======
      *
      * @param sxBusiness
->>>>>>> Stashed changes
      * @return
      */
     @ApiOperation(value = "查询所有的商户")
     @GetMapping("/list")
-<<<<<<< Updated upstream
-    public CommonResult list(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
-                             @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
-                             @RequestParam(value = "name",required = false,defaultValue = "")String name){
-       return CommonResult.success( sxBusinessService.list(page,pageSize,name));
-=======
     public CommonResult<List<SxBusiness>> list(SxBusiness sxBusiness) {
         return CommonResult.success(sxBusinessService.list(sxBusiness));
->>>>>>> Stashed changes
     }
 
     /**

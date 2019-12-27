@@ -2,6 +2,8 @@ package com.mt.sx.common.util;
 
 import com.mt.sx.common.base.UserActive;
 import com.mt.sx.pojo.SxUser;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

@@ -18,6 +18,14 @@ public class SxBusiness implements Serializable {
      */
     private String name;
 
+    /**
+     * 商户密码
+     */
+
+
+    /**
+     * 盐
+     */
 
 
     /**
@@ -94,6 +102,18 @@ public class SxBusiness implements Serializable {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
+    /**
+     * 获取商户密码
+     *
+     * @return password - 商户密码
+     */
+
+    /**
+     * 获取盐
+     *
+     * @return salt - 盐
+     */
 
 
     /**

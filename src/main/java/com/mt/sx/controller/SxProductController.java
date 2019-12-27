@@ -27,11 +27,8 @@ public class SxProductController {
      */
     @ApiOperation("商品列表查询")
     @GetMapping("/list")
-    public CommonResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
-                             @RequestParam(value = "name", required = false, defaultValue = "") String name,
-                             @RequestParam(value = "description", required = false, defaultValue = "") String description) {
-        return CommonResult.success(sxProductService.list(page, pageSize, name, description));
+    public CommonResult list(SxProductVO sxProductVO) {
+        return CommonResult.success(sxProductService.list(sxProductVO));
     }
 
     /**
@@ -43,15 +40,10 @@ public class SxProductController {
     @ApiOperation("插入商品信息")
     @PostMapping("/insert")
     public CommonResult insert(SxProduct sxProduct) {
-<<<<<<< Updated upstream
-        sxProductService.insert(sxProduct);
-        return CommonResult.success();
-=======
         if (sxProductService.insert(sxProduct) == 1) {
             return CommonResult.success();
         }
         return CommonResult.fail(ResponseCode.INSERT_FALSE);
->>>>>>> Stashed changes
     }
 
     /**
@@ -63,13 +55,9 @@ public class SxProductController {
     @ApiOperation(value = "更新商品接口")
     @PostMapping("/update")
     public CommonResult update(SxProduct sxProduct) {
-<<<<<<< Updated upstream
-        sxProductService.update(sxProduct);
-=======
         if (sxProductService.update(sxProduct) == 1) {
             return CommonResult.success();
         }
->>>>>>> Stashed changes
         return CommonResult.fail(ResponseCode.UPDATE_FALSE);
     }
 
@@ -82,16 +70,10 @@ public class SxProductController {
     @ApiOperation(value = "删除商品信息", notes = "传入商品的id")
     @PostMapping("/delete")
     public CommonResult delete(@RequestParam("id") Integer id) {
-<<<<<<< Updated upstream
-        sxProductService.delete(id);
-        return CommonResult.success();
-
-=======
         if (sxProductService.delete(id) == 1) {
             return CommonResult.success();
         }
         return CommonResult.fail(ResponseCode.DELETE_FALSE);
->>>>>>> Stashed changes
     }
 
     /**
@@ -162,16 +144,6 @@ public class SxProductController {
             e.printStackTrace();
             return CommonResult.fail(ResponseCode.DELETE_FALSE);
         }
-
-    }
-
-    /**
-     * 查询库存紧张的商品
-     */
-    @GetMapping("/findDangerNum")
-    public CommonResult findDangerNum( @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
-       return CommonResult.success( sxProductService.findDangerNum(page,pageSize));
 
     }
 }

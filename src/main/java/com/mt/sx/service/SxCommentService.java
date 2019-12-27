@@ -8,11 +8,12 @@ import java.util.List;
 public interface SxCommentService {
     CommonPage list(Integer page, Integer pageSize);
 
-    void insert(SxComment sxComment);
 
-    void delete(Integer id);
+    Integer insert(SxComment sxComment);
 
-    CommonPage findByProductId(Integer page,Integer pageSize,Integer productId);
+    Integer delete(Integer id);
+
+    List<SxComment> findByProductId(Integer productId);
 
     void batchDelete(List<Integer> ids);
 
