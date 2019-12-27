@@ -30,7 +30,7 @@ public class MenuController {
 
 
     /**
-     * 查询所有权限
+     * 查询所有菜单
      */
     @GetMapping("/listMenu")
     public CommonResult listMenu(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
@@ -46,7 +46,7 @@ public class MenuController {
 
 
     /**
-     * 增加权限
+     * 增加菜单
      */
     @PostMapping("/insertMenu")
     public  CommonResult insertMenu(SxPermission sxPermission){
@@ -60,7 +60,7 @@ public class MenuController {
     }
 
     /**
-     * 修改权限
+     * 修改菜单
      */
     @PostMapping("/updateMenu")
     public CommonResult updateMenu(SxPermission sxPermission){
@@ -75,7 +75,7 @@ public class MenuController {
     }
 
     /**
-     * 删除权限
+     * 删除菜单
      */
     @PostMapping("/deleteMenu")
     public CommonResult deleteMenu(Integer id){

@@ -3,11 +3,12 @@ package com.mt.sx.service;
 import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.pojo.SxProduct;
 import com.mt.sx.pojo.vo.SxProductVO;
+import org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration;
 
 import java.util.List;
 
 public interface SxProductService {
-    CommonPage<List<SxProduct>> list(Integer page, Integer pageSize, String name, String description);
+    CommonPage list(Integer page, Integer pageSize, String name, String description);
 
     void insert(SxProduct sxProduct);
 
@@ -24,6 +25,8 @@ public interface SxProductService {
     SxProduct findById(Integer id);
 
     void batchDelete(List<Integer> ids);
+
+    CommonPage findDangerNum(Integer page,Integer pageSize);
 
 
 }

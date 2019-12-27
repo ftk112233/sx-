@@ -27,6 +27,21 @@ public class SxCommentController {
     }
 
     /**
+     * 通过商品id查询
+     * @param page
+     * @param pageSize
+     * @param productId
+     * @return
+     */
+    @GetMapping("/findByProId")
+    public CommonResult findByProId(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
+                                    @RequestParam(value = "pageSize",required = false,defaultValue = "10") Integer pageSize,
+                                    @RequestParam(value = "productId",required = false,defaultValue = "") Integer productId){
+        return CommonResult.success(sxCommentService.findByProductId(page,pageSize,productId));
+
+    }
+
+    /**
      * 添加一条评论
      * @param sxComment
      * @return
@@ -62,13 +77,10 @@ public class SxCommentController {
 
     }
 
-    @GetMapping("/findByProductId")
-    public CommonResult<List<SxComment>> findByProductId(@RequestParam("productId") Integer productId){
-        return CommonResult.success(sxCommentService.findByProductId(productId));
-    }
+
 
     /**
-     * 批量删除
+     * 批量删除评论
      */
     @PostMapping("/batchDelete")
     public CommonResult batchDelete(@RequestParam("ids") List<Integer> ids){

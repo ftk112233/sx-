@@ -1,6 +1,7 @@
 package com.mt.sx.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.mapper.SxCommentMapper;
 import com.mt.sx.mapper.SxProductMapper;
@@ -68,10 +69,12 @@ public class SxCommentServiceImpl implements SxCommentService {
      * @return
      */
     @Override
-    public List<SxComment> findByProductId(Integer productId) {
+    public CommonPage findByProductId(Integer page,Integer pageSize,Integer productId) {
+        PageHelper.startPage(page,pageSize);
         SxComment sxComment=new SxComment();
         sxComment.setProductId(productId);
-        return sxCommentMapper.select(sxComment);
+        List<SxComment> comments = sxCommentMapper.select(sxComment);
+        return CommonPage.restPage(comments);
     }
 
     /**

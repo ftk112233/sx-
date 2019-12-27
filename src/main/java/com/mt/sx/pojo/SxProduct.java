@@ -35,10 +35,23 @@ public class SxProduct  implements Serializable {
     @Column(name = "pre_price")
     private BigDecimal prePrice;
 
+    public Integer getDangernum() {
+        return dangernum;
+    }
+
+    public void setDangernum(Integer dangernum) {
+        this.dangernum = dangernum;
+    }
+
     /**
      * 库存数量
      */
     private Integer number;
+
+    /**
+     * 紧张库存数
+     */
+    private Integer dangernum;
 
     /**
      * 单位

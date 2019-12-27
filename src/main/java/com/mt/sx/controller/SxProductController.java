@@ -132,4 +132,14 @@ public class SxProductController {
         }
 
     }
+
+    /**
+     * 查询库存紧张的商品
+     */
+    @GetMapping("/findDangerNum")
+    public CommonResult findDangerNum( @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
+       return CommonResult.success( sxProductService.findDangerNum(page,pageSize));
+
+    }
 }
