@@ -37,10 +37,11 @@ public class SxCommentController {
      * @param sxComment
      * @return
      */
-    @ApiOperation("插入心的评价信息")
+    @ApiOperation("插入新的评价信息")
     @PostMapping("/insert")
     public CommonResult insert(SxComment sxComment) {
         if (sxCommentService.insert(sxComment) == 1) {
+
             return CommonResult.success();
         }
         return CommonResult.fail(ResponseCode.INSERT_FALSE);
