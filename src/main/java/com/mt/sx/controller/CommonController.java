@@ -108,11 +108,11 @@ public class CommonController extends BaseController {
             String newFilename = IdUtil.simpleUUID() + ext;
 
             // 创建新文件
-            File image = FileUtil.touch(IMAGEUPLOADPATH+ newFilename);
+            File image = FileUtil.touch(getClasspath() + "static/images/upload/" + newFilename);
             // 写入文件信息
             file.transferTo(image);
             // 返回图片地址
-            return CommonResult.success("/images/" + newFilename);
+            return CommonResult.success(IMAGEUPLOADPATH + newFilename);
         } catch (FileNotFoundException e) {
             LOGGER.error("图片上传失败", e);
             return CommonResult.fail(ResponseCode.FAILED.getCode(), "图片上传失败");
@@ -134,7 +134,7 @@ public class CommonController extends BaseController {
         // 获取文件
         File file = new File(FILEPATH + fileAttachment);
         if(FileUtil.isEmpty(file)) {
-            throw new GlobalException("文件不存在", -1);
+            throw new GlobalException( -1,"文件不存在");
         }
         try {
             response.setCharacterEncoding("utf-8");

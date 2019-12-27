@@ -31,12 +31,12 @@ public class SxCategoryServiceImpl implements SxCategoryService {
      * @return
      */
     @Override
-    public Integer insertCategory(SxCategory sxCategory) {
+    public void insertCategory(SxCategory sxCategory) {
         Date date = new Date();
         sxCategory.setCreateTime(date);
         sxCategory.setUpdateTime(date);
 
-        return sxCategoryMapper.insertSelective(sxCategory);
+        sxCategoryMapper.insertSelective(sxCategory);
     }
 
     /**
@@ -47,9 +47,9 @@ public class SxCategoryServiceImpl implements SxCategoryService {
      */
 
     @Override
-    public Integer updateCategory(SxCategory sxCategory) {
+    public void updateCategory(SxCategory sxCategory) {
         sxCategory.setUpdateTime(new Date());
-        return sxCategoryMapper.updateByPrimaryKeySelective(sxCategory);
+        sxCategoryMapper.updateByPrimaryKeySelective(sxCategory);
     }
 
     /**
@@ -60,8 +60,8 @@ public class SxCategoryServiceImpl implements SxCategoryService {
      */
 
     @Override
-    public Integer deleteCategory(Integer id) {
-       return sxCategoryMapper.deleteByPrimaryKey(id);
+    public void deleteCategory(Integer id) {
+       sxCategoryMapper.deleteByPrimaryKey(id);
     }
 
     /**

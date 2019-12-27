@@ -53,6 +53,19 @@ public class SxComment  implements Serializable {
      * 评论内容
      */
     private String content;
+    /**
+     * 商品名
+     */
+    @Transient
+    private  String productName;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     /**
      * 获取自增id

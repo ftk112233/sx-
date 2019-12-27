@@ -7,13 +7,13 @@ import com.mt.sx.pojo.vo.SxProductVO;
 import java.util.List;
 
 public interface SxProductService {
-    CommonPage<List<SxProduct>> list(SxProductVO sxProductVO);
+    CommonPage<List<SxProduct>> list(Integer page, Integer pageSize, String name, String description);
 
-    Integer insert(SxProduct sxProduct);
+    void insert(SxProduct sxProduct);
 
-    Integer update(SxProduct sxProduct);
+    void update(SxProduct sxProduct);
 
-    Integer delete(Integer id);
+    void delete(Integer id);
 
     CommonPage findSellWell();
 

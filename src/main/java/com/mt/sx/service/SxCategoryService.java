@@ -7,11 +7,11 @@ import java.util.List;
 public interface SxCategoryService {
     List<SxCategory> list();
 
-    Integer insertCategory(SxCategory sxCategory);
+    void insertCategory(SxCategory sxCategory);
 
-    Integer updateCategory(SxCategory sxCategory);
+    void updateCategory(SxCategory sxCategory);
 
-    Integer  deleteCategory(Integer id);
+    void  deleteCategory(Integer id);
 
     SxCategory findById(Integer id);
 

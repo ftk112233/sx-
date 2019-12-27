@@ -20,7 +20,7 @@ public interface SxOrdersService {
 
     SxOrderInfo findOrdersInfo(Integer id);
 
-    List<List<SxSubOrderVo>> findSubOrderByList(List<String> subIdList);
+//    List<SxSubOrderVo> adminFindSubOrder(String suborderId);
 
     CommonResult addPassBy(String suborderId, Integer passById);
 
@@ -31,7 +31,5 @@ public interface SxOrdersService {
     List<SxSubOrderVo> findSubOrdersForTable(Integer type);
 
     CommonResult totalConsume();
-
-    CommonResult findSubOrderByName(String name, String subOrderId);
 
 }

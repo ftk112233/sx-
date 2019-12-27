@@ -9,24 +9,22 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-import static com.mt.sx.common.util.UserUtils.getUser;
-
 @Service
 public class SxUserAddressServiceImpl implements SxUserAddressService {
     @Autowired
     SxAddressInfoMapper sxAddressInfoMapper;
 
     @Override
-    public List<SxAddressInfo> addressList() {
-
+    public List<SxAddressInfo> addressList(Integer shopId) {
         SxAddressInfo sxAddressInfo  = new SxAddressInfo();
-        sxAddressInfo.setShopId(getUser().getRelateId());
+        sxAddressInfo.setShopId(shopId);
         return sxAddressInfoMapper.select(sxAddressInfo);
     }
 
     @Override
     public Integer insert(SxAddressInfo sxAddressInfo) {
-        sxAddressInfo.setShopId(getUser().getRelateId());
+        //测试代码。以后从redis获取用户的id存储
+        sxAddressInfo.setShopId(1);
         sxAddressInfo.setCreateTime(new Date());
         return sxAddressInfoMapper.insert(sxAddressInfo);
     }

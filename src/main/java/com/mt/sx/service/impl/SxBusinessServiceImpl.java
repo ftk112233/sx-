@@ -1,6 +1,9 @@
 package com.mt.sx.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.mapper.SxBusinessMapper;
 import com.mt.sx.pojo.SxBusiness;
 import com.mt.sx.service.SxBusinessService;
@@ -19,19 +22,23 @@ public class SxBusinessServiceImpl implements SxBusinessService {
     SxBusinessMapper sxBusinessMapper;
 
 
-
     /**
-     * 按条件查询商户
-     * @param sxBusiness
+     * 按条件查询用户
+     * @param page
+     * @param pageSize
+     * @param name
      * @return
      */
     @Override
-    public List<SxBusiness> list(SxBusiness sxBusiness) {
+    public CommonPage<SxBusiness> list(Integer page, Integer pageSize, String name) {
+        PageHelper.startPage(page,pageSize);
         Example example =new Example(SxBusiness.class);
-        if(StringUtils.isNotBlank(sxBusiness.getName())){
-            example.createCriteria().andLike("name",sxBusiness.getName());
+        if(StringUtils.isNotBlank(name)){
+            example.createCriteria().andLike("name","%"+name+"%");
         }
-        return sxBusinessMapper.selectByExample(example);
+        List<SxBusiness> sxBusinesses = sxBusinessMapper.selectByExample(example);
+
+        return CommonPage.restPage(sxBusinesses);
     }
 
     /**

@@ -5,7 +5,7 @@ import com.mt.sx.pojo.SxAddressInfo;
 import java.util.List;
 
 public interface SxUserAddressService {
-    List<SxAddressInfo> addressList();
+    List<SxAddressInfo> addressList(Integer shopId);
 
     Integer insert(SxAddressInfo sxAddressInfo);
 
