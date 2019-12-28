@@ -1,5 +1,6 @@
 package com.mt.sx.service;
 
+import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.pojo.SxBusiness;
 
 import java.util.List;
@@ -14,9 +15,10 @@ public interface SxBusinessService {
 
     SxBusiness findById(Integer id);
 
-    List<SxBusiness> list(SxBusiness sxBusiness);
+
 
     void batchDelete(List<Integer> ids);
 
 
+    CommonPage list(Integer page, Integer pageSize, String name);
 }

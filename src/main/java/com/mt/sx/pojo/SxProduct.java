@@ -41,6 +41,10 @@ public class SxProduct  implements Serializable {
     private Integer number;
 
     /**
+     * 紧张库存量
+     */
+    private Integer dangernum;
+    /**
      * 单位
      */
     private String unit;
@@ -87,6 +91,14 @@ public class SxProduct  implements Serializable {
      */
     @Column(name = "create_by")
     private String createBy;
+
+    public Integer getDangernum() {
+        return dangernum;
+    }
+
+    public void setDangernum(Integer dangernum) {
+        this.dangernum = dangernum;
+    }
 
     /**
      * 更新时间

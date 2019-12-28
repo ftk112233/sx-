@@ -55,7 +55,7 @@ public class LoginController {
         }
 
     }
-
+    @ApiOperation("用户退出")
     @GetMapping("/logout")
     public CommonResult logout(HttpServletRequest request) {
         String token = request.getHeader("token");

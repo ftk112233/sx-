@@ -1,5 +1,7 @@
 package com.mt.sx.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.common.base.CommonResult;
 import com.mt.sx.common.enums.ResponseCode;
 import com.mt.sx.pojo.SxBusiness;
@@ -21,13 +23,14 @@ public class SxBusinessController {
     /**
      * 查询所有商户
      *
-     * @param sxBusiness
      * @return
      */
     @ApiOperation(value = "查询所有的商户")
     @GetMapping("/list")
-    public CommonResult<List<SxBusiness>> list(SxBusiness sxBusiness) {
-        return CommonResult.success(sxBusinessService.list(sxBusiness));
+    public CommonResult<CommonPage<SxBusiness>> list(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
+                                                     @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize,
+                                                     @RequestParam(value = "name",required = false,defaultValue = "") String name) {
+        return CommonResult.success(sxBusinessService.list(page,pageSize,name));
     }
 
     /**

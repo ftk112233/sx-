@@ -25,5 +25,7 @@ public interface SxProductService {
 
     void batchDelete(List<Integer> ids);
 
+    CommonPage findDangerNum(Integer page,Integer pageSize);
+
 
 }

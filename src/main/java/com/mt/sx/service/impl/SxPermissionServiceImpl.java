@@ -69,9 +69,10 @@ public class SxPermissionServiceImpl implements SxPermissionService {
     public List<SxPermission> loadLeftMenu() {
         SxUser user = UserUtils.getUser();
         List<SxPermission> list=null;
+        SxPermission permission=new SxPermission();
+        permission.setType("menu");
+        permission.setStatus(1);
         if (user.getType()==0){//如果是管理员则加载全部
-            SxPermission permission=new SxPermission();
-            permission.setType("menu");
             list=sxPermissionMapper.select(permission);
         }else{
             //先查询角色拥有的角色，再根据角色查询拥有的菜单
@@ -88,7 +89,14 @@ public class SxPermissionServiceImpl implements SxPermissionService {
                 }
             }
             List<Integer> ids = new ArrayList<>(permissionIds);
-            list=sxPermissionMapper.selectByIdList(ids);
+            for(Integer id:ids){
+                permission.setId(id);
+                SxPermission one = sxPermissionMapper.selectOne(permission);
+                if(one!=null){
+                    list.add(one);
+                }
+
+            }
         }
         return list;
     }

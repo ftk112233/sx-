@@ -144,6 +144,21 @@ public class SxProductController {
             e.printStackTrace();
             return CommonResult.fail(ResponseCode.DELETE_FALSE);
         }
+    }
+
+    /**
+     * 查询库存紧张的商品
+     */
+    public CommonResult findDangerNum(@RequestParam(value = "page",required = false,defaultValue = "1")Integer page,
+                                      @RequestParam(value = "pageSize",required = false,defaultValue = "10")Integer pageSize){
+        try {
+            CommonPage dangerNum = sxProductService.findDangerNum(page, pageSize);
+            return CommonResult.success(dangerNum);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.fail(ResponseCode.SELECT_FALSE);
+        }
+
 
     }
 }
