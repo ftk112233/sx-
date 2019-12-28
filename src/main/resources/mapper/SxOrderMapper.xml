@@ -10,12 +10,12 @@
     <result column="total_number" jdbcType="INTEGER" property="totalNumber" />
     <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
     <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="hope_time" jdbcType="TIMESTAMP" property="hopeTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
     <result column="message" jdbcType="VARCHAR" property="message" />
     <result column="passby_id" jdbcType="INTEGER" property="passbyId" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />

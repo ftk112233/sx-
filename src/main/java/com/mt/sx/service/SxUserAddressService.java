@@ -12,4 +12,6 @@ public interface SxUserAddressService {
     Integer update(SxAddressInfo sxAddressInfo);
 
     Integer deletedForUser(Integer id);
+
+    SxAddressInfo selectById(Integer id);
 }

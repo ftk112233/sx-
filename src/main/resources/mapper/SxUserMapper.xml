@@ -11,6 +11,9 @@
     <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="relate_id" jdbcType="VARCHAR" property="relateId" />
+    <result column="relate_id" jdbcType="INTEGER" property="relateId" />
+    <result column="open_id" jdbcType="INTEGER" property="openId" />
+    <result column="nice_name" jdbcType="VARCHAR" property="niceName" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
   </resultMap>
 </mapper>

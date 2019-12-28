@@ -1,29 +1,30 @@
 package com.mt.sx.service.impl;
 
-        import com.mt.sx.common.base.CommonResult;
-        import com.mt.sx.common.util.RedisUtil;
-        import com.mt.sx.mapper.*;
-        import com.mt.sx.pojo.*;
-        import com.mt.sx.pojo.vo.SxCartVo;
-        import com.mt.sx.pojo.vo.SxSubOrderVo;
-        import com.mt.sx.service.SxOrdersService;
-        import org.apache.commons.lang3.StringUtils;
-        import org.springframework.beans.BeanUtils;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
-        import tk.mybatis.mapper.entity.Example;
+import com.mt.sx.common.base.CommonResult;
+import com.mt.sx.common.exception.GlobalException;
+import com.mt.sx.common.util.RedisUtil;
+import com.mt.sx.mapper.*;
+import com.mt.sx.pojo.*;
+import com.mt.sx.pojo.vo.SxCartVo;
+import com.mt.sx.pojo.vo.SxSubOrderVo;
+import com.mt.sx.service.SxOrdersService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
-        import javax.annotation.Resource;
-        import java.math.BigDecimal;
-        import java.text.DateFormat;
-        import java.text.SimpleDateFormat;
-        import java.util.ArrayList;
-        import java.util.Date;
-        import java.util.List;
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-        import static com.mt.sx.common.util.CommonUtils.removeDuplicateWithOrder;
-        import static com.mt.sx.common.util.UUIDGenerator.getUUId;
-        import static com.mt.sx.common.util.UserUtils.getUser;
+import static com.mt.sx.common.util.CommonUtils.removeDuplicateWithOrder;
+import static com.mt.sx.common.util.UUIDGenerator.getUUId;
+import static com.mt.sx.common.util.UserUtils.getUser;
 
 @Service
 public class SxOrdersServiceImpl implements SxOrdersService {
@@ -261,8 +262,8 @@ public class SxOrdersServiceImpl implements SxOrdersService {
     public CommonResult addPassBy(String suborderId, Integer passById) {//suborderId是唯一的
         checkOrderType();
         Integer type = getUser().getType();
-        if (type!=1){
-            return CommonResult.fail(-1,"没有操作权限");
+        if (type != 1) {
+            return CommonResult.fail(-1, "没有操作权限");
         }
         SxSubOrder sxSubOrders = new SxSubOrder();
         sxSubOrders.setSuborderId(suborderId);
@@ -291,8 +292,8 @@ public class SxOrdersServiceImpl implements SxOrdersService {
     public CommonResult cancelOrder(String suborderId) {
         checkOrderType();
         Integer type = getUser().getType();
-        if (type!=0||type!=2){
-            return CommonResult.fail(-1,"没有操作权限");
+        if (type != 0 || type != 2) {
+            return CommonResult.fail(-1, "没有操作权限");
         }
         SxSubOrder sxSubOrders = new SxSubOrder();
         sxSubOrders.setSuborderId(suborderId);
@@ -308,14 +309,18 @@ public class SxOrdersServiceImpl implements SxOrdersService {
     public CommonResult cancelOrderForTable(String suborderId) {
         checkOrderType();
         Integer type = getUser().getType();
-        if (type!=1){
-            return CommonResult.fail(-1,"没有操作权限");
+        if (type != 1) {
+            return CommonResult.fail(-1, "没有操作权限");
         }
         SxSubOrder sxSubOrders = new SxSubOrder();
         sxSubOrders.setSuborderId(suborderId);
         SxSubOrder sxSubOrder = sxSubOrderMapper.selectOne(sxSubOrders);
         if (sxSubOrder.getType() == 1) {
-            return CommonResult.success(sxSubOrderMapper.deleteByExample(sxSubOrder));
+            sxSubOrder.setType(4);
+            sxSubOrderMapper.updateByPrimaryKey(sxSubOrder);
+            changeType(sxSubOrder.getSuborderId());
+            changeNumber(sxSubOrder.getSuborderId());
+            return CommonResult.success("操作成功");
         }
         if (sxSubOrder.getType() == 0) {
             return CommonResult.fail(-1, "未付款的订单商家不可取消，请联系客户操作");
@@ -455,5 +460,40 @@ public class SxOrdersServiceImpl implements SxOrdersService {
         }
     }//大于一个小时的订单将在下一次任意人员的查询时自动删除
 
+    public void changeNumber(String subOrderId) {
+        SxOrderInfo sxOrderInfo = new SxOrderInfo();
+        sxOrderInfo.setSuborderId(subOrderId);
+        List<SxOrderInfo> select = sxOrderInfoMapper.select(sxOrderInfo);
+        for (SxOrderInfo orderInfo : select) {
+            Integer productId = orderInfo.getProductId();
+            Integer number = orderInfo.getNumber();
+            SxProduct sxProduct = sxProductMapper.selectByPrimaryKey(productId);
+            if (orderInfo.getType() == 0) {
+                Integer number1 = sxProduct.getNumber() - number;
+                if (number1 < 0) {
+                    throw new GlobalException(-1, "库存数量异常，请稍后再下单");
+                }
+                sxProduct.setNumber(number1);
+            } else {
+                Integer number1 = sxProduct.getNumber() + number;
+                sxProduct.setNumber(number1);
+            }
+            sxProductMapper.selectByPrimaryKey(sxProduct);
+        }
+    }//取消订单或者下单成功时改变剩余库存,自动获取订单状态是生成还是取消
+
+    public void changeType(String subOrderId) {
+        SxSubOrder sxSubOrder = new SxSubOrder();
+        sxSubOrder.setSuborderId(subOrderId);
+        SxSubOrder sxSubOrder1 = sxSubOrderMapper.selectOne(sxSubOrder);
+        Integer type = sxSubOrder1.getType();
+        SxOrderInfo sxOrderInfo = new SxOrderInfo();
+        sxOrderInfo.setSuborderId(subOrderId);
+        List<SxOrderInfo> select = sxOrderInfoMapper.select(sxOrderInfo);
+        for (SxOrderInfo orderInfo : select) {
+            orderInfo.setType(type);
+            sxOrderInfoMapper.updateByPrimaryKey(orderInfo);
+        }
+    }//关联改变状态，只限于该订单的子订单信息（subOrder和orderInfo）
 }
 

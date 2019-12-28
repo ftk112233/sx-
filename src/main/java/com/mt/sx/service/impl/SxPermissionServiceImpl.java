@@ -74,9 +74,9 @@ public class SxPermissionServiceImpl implements SxPermissionService {
             permission.setType("menu");
             list=sxPermissionMapper.select(permission);
         }else{
-             //先查询角色拥有的角色，再根据角色查询拥有的菜单
-             SxUserRole sxUserRole=new SxUserRole();
-             sxUserRole.setUid(user.getId());
+            //先查询角色拥有的角色，再根据角色查询拥有的菜单
+            SxUserRole sxUserRole=new SxUserRole();
+            sxUserRole.setUid(user.getId());
             List<SxUserRole> userRoles = sxUserRoleMapper.select(sxUserRole);
             Set<Integer> permissionIds=new HashSet<>();
             for(SxUserRole userRole:userRoles){
@@ -237,7 +237,7 @@ public class SxPermissionServiceImpl implements SxPermissionService {
 
     /**
      * 根据菜单id查询权限
-     * @param d
+     * @param
      * @return
      */
     @Override

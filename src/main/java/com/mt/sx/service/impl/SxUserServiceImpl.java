@@ -83,13 +83,13 @@ public class SxUserServiceImpl implements SxUserService {
      */
     @Override
     public void batchDelete(List<Integer> ids) {
-       for (Integer id:ids){
-           //先删除用户和角色关联的中间表
-           SxUserRole sxUserRole=new SxUserRole();
-           sxUserRole.setUid(id);
-           sxUserRoleMapper.delete(sxUserRole);
-       }
-       sxUserMapper.deleteByIdList(ids);
+        for (Integer id:ids){
+            //先删除用户和角色关联的中间表
+            SxUserRole sxUserRole=new SxUserRole();
+            sxUserRole.setUid(id);
+            sxUserRoleMapper.delete(sxUserRole);
+        }
+        sxUserMapper.deleteByIdList(ids);
     }
 
     /**

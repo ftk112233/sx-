@@ -1,6 +1,5 @@
 package com.mt.sx.service;
 
-import com.github.pagehelper.PageInfo;
 import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.pojo.SxPermission;
 
@@ -14,7 +13,7 @@ public interface SxPermissionService {
 
     List<SxPermission> loadLeftMenu();
 
-    CommonPage listPermission(Integer page, Integer pageSize,String percode);
+    CommonPage listPermission(Integer page, Integer pageSize, String percode);
 
     void insertPermission(SxPermission sxPermission);
 

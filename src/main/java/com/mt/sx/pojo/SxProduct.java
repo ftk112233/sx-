@@ -41,11 +41,6 @@ public class SxProduct  implements Serializable {
     private Integer number;
 
     /**
-     * 紧张库存数
-     */
-    private Integer dangernum;
-
-    /**
      * 单位
      */
     private String unit;

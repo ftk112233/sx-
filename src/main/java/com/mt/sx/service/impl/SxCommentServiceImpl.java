@@ -1,12 +1,9 @@
 package com.mt.sx.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.mt.sx.common.base.CommonPage;
 import com.mt.sx.mapper.SxCommentMapper;
-import com.mt.sx.mapper.SxProductMapper;
 import com.mt.sx.pojo.SxComment;
-import com.mt.sx.pojo.SxProduct;
 import com.mt.sx.service.SxCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +15,10 @@ import java.util.List;
 public class SxCommentServiceImpl implements SxCommentService {
     @Autowired
     SxCommentMapper sxCommentMapper;
-    @Autowired
-    SxProductMapper sxProductMapper;
 
     /**
      * 查询所有评论
-     *
+     * 还得改
      * @param page
      * @param pageSize
      * @return
@@ -32,10 +27,6 @@ public class SxCommentServiceImpl implements SxCommentService {
     public CommonPage list(Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
         List<SxComment> sxComments = sxCommentMapper.selectAll();
-        for(SxComment sxComment:sxComments){
-            SxProduct sxProduct = sxProductMapper.selectByPrimaryKey(sxComment.getProductId());
-            sxComment.setProductName(sxProduct.getName());
-        }
         return CommonPage.restPage(sxComments);
     }
 
@@ -46,11 +37,11 @@ public class SxCommentServiceImpl implements SxCommentService {
      * @return
      */
     @Override
-    public void insert(SxComment sxComment) {
+    public Integer insert(SxComment sxComment) {
         Date date=new Date();
         sxComment.setCreateTime(date);
         sxComment.setUpdateTime(date);
-        sxCommentMapper.insertSelective(sxComment);
+        return sxCommentMapper.insertSelective(sxComment);
     }
 
     /**
@@ -59,8 +50,8 @@ public class SxCommentServiceImpl implements SxCommentService {
      * @return
      */
     @Override
-    public void delete(Integer id) {
-        sxCommentMapper.deleteByPrimaryKey(id);
+    public Integer delete(Integer id) {
+        return sxCommentMapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -69,12 +60,10 @@ public class SxCommentServiceImpl implements SxCommentService {
      * @return
      */
     @Override
-    public CommonPage findByProductId(Integer page,Integer pageSize,Integer productId) {
-        PageHelper.startPage(page,pageSize);
+    public List<SxComment> findByProductId(Integer productId) {
         SxComment sxComment=new SxComment();
         sxComment.setProductId(productId);
-        List<SxComment> comments = sxCommentMapper.select(sxComment);
-        return CommonPage.restPage(comments);
+        return sxCommentMapper.select(sxComment);
     }
 
     /**

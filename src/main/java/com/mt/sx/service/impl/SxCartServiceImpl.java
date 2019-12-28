@@ -1,6 +1,7 @@
 package com.mt.sx.service.impl;
 
 import com.mt.sx.common.base.CommonResult;
+import com.mt.sx.common.exception.GlobalException;
 import com.mt.sx.common.util.RedisUtil;
 import com.mt.sx.mapper.SxBusinessMapper;
 import com.mt.sx.mapper.SxCartMapper;
@@ -71,6 +72,9 @@ public class SxCartServiceImpl implements SxCartService {
     @Override
     public CommonResult<ArrayList<List<SxCartVo>>> findCartInfoById() {//这个id是用户的id,shopId
         SxUser sxUser = getUser();
+        if (sxUser.getType() != 2 || sxUser == null) {
+            throw new GlobalException(401, "你没有权限访问,请先登陆");
+        }
         Example example = new Example(SxCart.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("shopId", sxUser.getRelateId());
@@ -131,7 +135,7 @@ public class SxCartServiceImpl implements SxCartService {
     @Override
     public CommonResult deletedMany(List list) {
         sxCartMapper.deleteByIdList(list);
-            return CommonResult.success("删除成功", 200);
+        return CommonResult.success("删除成功", 200);
 
     }
 }
