@@ -53,9 +53,12 @@ public class SxPermissionServiceImpl implements SxPermissionService {
             //根据权限id查询权限
             SxPermission permission=new SxPermission();
             permission.setId(rolePermission.getPid());
+            permission.setStatus(1);
             permission.setType("permission");
             SxPermission sxPermission = sxPermissionMapper.selectOne(permission);
-            permissionList.add(sxPermission);
+            if (sxPermission!=null) {
+                permissionList.add(sxPermission);
+            }
 
         }
         return permissionList;

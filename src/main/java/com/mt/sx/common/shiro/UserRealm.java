@@ -69,8 +69,10 @@ public class UserRealm extends AuthorizingRealm {
                 //查询角色拥有的所有权限
                 List<SxPermission> sxPermissions = sxPermissionService.allPermissionsByRid(role.getId());
 
-                for (SxPermission permission : sxPermissions) {
-                    permissionName.add(permission.getPercode());
+                if (sxPermissions!=null&&sxPermissions.size()>0) {
+                    for (SxPermission permission : sxPermissions) {
+                        permissionName.add(permission.getPercode());
+                    }
                 }
             }
             userActive.setRoles(roleNames);
